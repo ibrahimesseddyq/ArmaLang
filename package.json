@@ -1,0 +1,19 @@
+{
+    "name": "armalang",
+    "version": "1.0.0",
+    "description": "ArmaLang is a programming Language based on darija and built to make learning coding simple",
+    "main": "index.js",
+    "scripts": {
+        "gen-parser": "nearleyc arma.ne -o arma.js"
+    },
+
+    "keywords": [],
+    "author": "",
+    "license": "MIT",
+    "dependencies": {
+        "koa": "^2.13.4",
+        "moo": "^0.5.1",
+        "mz": "^2.7.0",
+        "nearley": "^2.19.5"
+    }
+}
