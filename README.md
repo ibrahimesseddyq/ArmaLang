@@ -16,7 +16,6 @@ Here is some functionalities which will be available in the soon future:
 - return keyword
 - asynchronous
 - Design patterns
-
 - Http module
 - Filesystem 
 - OS Module
