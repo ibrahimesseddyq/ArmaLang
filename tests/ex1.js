@@ -1,39 +1,9 @@
-var c = dreb(0, 1);
-kteb(c)
+var q = 4;
+kteb(q)
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+/*
+    those functions just for testing they will be replaced soon
+*/
 function kteb(...args) {
     console.log(...args);
 }

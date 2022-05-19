@@ -8,7 +8,7 @@ async function main() {
     }
 
     const astJson = (await fs.readFile(filename)).toString();
-    const runtimeJs = (await fs.readFile("./lib/standard.js")).toString();
+    const runtimeJs = (await fs.readFile("./src/lib/standard.js")).toString();
     const statements = JSON.parse(astJson);
     const jsCode = generateJsForStatements(statements) + "\n" + runtimeJs;
     const outputFilename = filename.replace(".ast", ".js");

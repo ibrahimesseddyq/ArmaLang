@@ -4,7 +4,7 @@ const myLexer = require("./lexer");
 
 @lexer myLexer
 import_js
-    -> "<" %importjsdec ">" js
+    -> "<" %importjsdec ">" _ js _ "</" %importjsdec ">"
 program
     -> _ml statements _ml
         {%

@@ -10,9 +10,9 @@ async function main() {
     }
     const astFilename = filename.replace(".darija", ".ast");
     const jsFilename = filename.replace(".darija", ".js");
-    await Execute(`node ./core/parse.js ${filename}`);
-    await Execute(`node ./core/generate.js ${astFilename}`);
-    await Execute(`node ./core/${jsFilename}`);
+    await Execute(`node ./src/core/parse.js ${filename}`);
+    await Execute(`node ./src/core/generate.js ${astFilename}`);
+    await Execute(`node ${jsFilename}`);
 }
 
 async function Execute(command) {
