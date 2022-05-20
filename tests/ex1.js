@@ -1,6 +1,10 @@
-var q = 4;
-kteb(q)
-
+var a = 5;
+var b = 4;
+var c = zid(a, b);
+kteb(c)
+var fonction = function () {
+    return kteb("aa")
+};
 /*
     those functions just for testing they will be replaced soon
 */
@@ -12,8 +16,15 @@ function zid(x, y) {
     return x + y;
 }
 
+function rahObject(thing) {
+    return thing !== null && (typeof thing === "function" || typeof thing === "object");
+}
+
 function lsse9(s1, s2) {
-    return s1 + s2;
+    if (!s1.concat) {
+        throw new Error(`${x} mt9derch tls9ha.`);
+    }
+    return s1.concat(s2);
 }
 
 function dreb(x, y) {

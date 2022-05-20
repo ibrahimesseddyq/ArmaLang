@@ -3,8 +3,8 @@
     "type": "var_assign",
     "var_name": {
       "type": "identifier",
-      "value": "q",
-      "text": "q",
+      "value": "a",
+      "text": "a",
       "offset": 4,
       "lineBreaks": 0,
       "line": 1,
@@ -12,12 +12,77 @@
     },
     "value": {
       "type": "number",
-      "value": "4",
-      "text": "4",
+      "value": "5",
+      "text": "5",
       "offset": 8,
       "lineBreaks": 0,
       "line": 1,
       "col": 9
+    }
+  },
+  {
+    "type": "var_assign",
+    "var_name": {
+      "type": "identifier",
+      "value": "b",
+      "text": "b",
+      "offset": 15,
+      "lineBreaks": 0,
+      "line": 2,
+      "col": 5
+    },
+    "value": {
+      "type": "number",
+      "value": "4",
+      "text": "4",
+      "offset": 19,
+      "lineBreaks": 0,
+      "line": 2,
+      "col": 9
+    }
+  },
+  {
+    "type": "var_assign",
+    "var_name": {
+      "type": "identifier",
+      "value": "c",
+      "text": "c",
+      "offset": 26,
+      "lineBreaks": 0,
+      "line": 3,
+      "col": 5
+    },
+    "value": {
+      "type": "fun_call",
+      "fun_name": {
+        "type": "identifier",
+        "value": "zid",
+        "text": "zid",
+        "offset": 30,
+        "lineBreaks": 0,
+        "line": 3,
+        "col": 9
+      },
+      "arguments": [
+        {
+          "type": "identifier",
+          "value": "a",
+          "text": "a",
+          "offset": 34,
+          "lineBreaks": 0,
+          "line": 3,
+          "col": 13
+        },
+        {
+          "type": "identifier",
+          "value": "b",
+          "text": "b",
+          "offset": 36,
+          "lineBreaks": 0,
+          "line": 3,
+          "col": 15
+        }
+      ]
     }
   },
   {
@@ -26,30 +91,62 @@
       "type": "identifier",
       "value": "kteb",
       "text": "kteb",
-      "offset": 11,
+      "offset": 40,
       "lineBreaks": 0,
-      "line": 2,
+      "line": 4,
       "col": 1
     },
     "arguments": [
       {
         "type": "identifier",
-        "value": "q",
-        "text": "q",
-        "offset": 16,
+        "value": "c",
+        "text": "c",
+        "offset": 45,
         "lineBreaks": 0,
-        "line": 2,
+        "line": 4,
         "col": 6
       }
     ]
   },
   {
-    "type": "comment",
-    "value": "//ilakan c tyssawi(\"mohammedcherkaoui\") ola 1.tyssawi(1))=>res1 res2) ",
-    "text": "//ilakan c tyssawi(\"mohammedcherkaoui\") ola 1.tyssawi(1))=>res1 res2) ",
-    "offset": 20,
-    "lineBreaks": 0,
-    "line": 3,
-    "col": 1
+    "type": "var_assign",
+    "var_name": {
+      "type": "identifier",
+      "value": "fonction",
+      "text": "fonction",
+      "offset": 53,
+      "lineBreaks": 0,
+      "line": 5,
+      "col": 5
+    },
+    "value": {
+      "type": "lambda",
+      "parameters": [],
+      "body": [
+        {
+          "type": "fun_call",
+          "fun_name": {
+            "type": "identifier",
+            "value": "kteb",
+            "text": "kteb",
+            "offset": 75,
+            "lineBreaks": 0,
+            "line": 6,
+            "col": 5
+          },
+          "arguments": [
+            {
+              "type": "string",
+              "value": "\"aa\"",
+              "text": "\"aa\"",
+              "offset": 80,
+              "lineBreaks": 0,
+              "line": 6,
+              "col": 10
+            }
+          ]
+        }
+      ]
+    }
   }
 ]

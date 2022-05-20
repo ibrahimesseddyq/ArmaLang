@@ -3,8 +3,8 @@ const myLexer = require("./lexer");
 %}
 
 @lexer myLexer
-import_js
-    -> "<" %importjsdec ">" _ js _ "</" %importjsdec ">"
+# import_js
+#     -> "<" %importjsdec ">" _ js _ "</" %importjsdec ">"
 program
     -> _ml statements _ml
         {%
@@ -28,6 +28,7 @@ statement
     |  fun_call    {% id %}
     |  %comment    {% id %}
     | ifstat {% id %}
+    | func_def {% id %}
 
 var_assign
     -> %vardec _ %identifier _ "=" _ expr
@@ -74,7 +75,7 @@ expr
     |  fun_call    {% id %}
     |  lambda      {% id %}
 func_def
-    -> %funcdef _ %identifier %lparen _ (param_list _):? %rparen %fatarrow _ml lambda_body
+    -> %funcdec _ %identifier %lparen _ (param_list _):? %rparen %fatarrow _ml lambda_body
     {% 
         (data)=>{
             return {
