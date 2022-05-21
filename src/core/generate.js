@@ -1,4 +1,5 @@
 const fs = require("mz/fs");
+const { autoImport } = require("./auto-import");
 var functions = [];
 async function main() {
     const filename = process.argv[2];
@@ -8,9 +9,13 @@ async function main() {
     }
 
     const astJson = (await fs.readFile(filename)).toString();
-    const runtimeJs = (await fs.readFile("./src/lib/standard.js")).toString();
+    // const runtimeJs = (await fs.readFile("./src/lib/standard.js")).toString();
     const statements = JSON.parse(astJson);
-    const jsCode = generateJsForStatements(statements) + "\n" + runtimeJs;
+
+    const firstJsCode = generateJsForStatements(statements) + "\n";
+    const runtimeJs = autoImport(functions);
+    jsCode = runtimeJs + firstJsCode;
+    // const jsCode = generateJsForStatements(statements) + "\n" + runtimeJs;
     const outputFilename = filename.replace(".ast", ".js");
     await fs.writeFile(outputFilename, jsCode);
     console.log(`Wrote ${outputFilename}.\n\n\n------------------------------`);
@@ -25,9 +30,6 @@ function generateJsForStatements(statements) {
     return lines.join("\n");
 }
 
-function autoImport(functions) {
-
-}
 
 function generateJsForStatementOrExpr(node) {
     switch (node.type) {

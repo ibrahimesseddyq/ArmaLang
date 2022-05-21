@@ -8,3 +8,7 @@ function t2kedMnType(type, val) {
 function rahObject(thing) {
     return thing !== null && (typeof thing === "function" || typeof thing === "object");
 }
+module.exports = {
+    t2kedMnType,
+    rahObject
+}

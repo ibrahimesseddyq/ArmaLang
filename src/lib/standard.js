@@ -83,3 +83,22 @@ function mnTal(start, end) {
 function lkolWahd(arr, fun) {
     arr.forEach(fun);
 }
+module.exports = {
+    kteb,
+    zid,
+    lsse9,
+    dreb,
+    n9ess,
+    _9ssem,
+    modulo,
+    jider,
+    _9owa,
+    _9reb,
+    tyssawi,
+    ilakan,
+    ola,
+    f,
+    mahed,
+    mnTal,
+    lkolWahd
+}

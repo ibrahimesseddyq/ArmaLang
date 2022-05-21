@@ -1,5 +1,5 @@
-const allTests = {
-    math: {
+const math = {
+    tests: {
         "3 + 3": 6,
         "2 - 9": 7,
         "3 * 7": 21,

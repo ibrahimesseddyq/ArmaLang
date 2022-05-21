@@ -11,6 +11,8 @@
     "license": "MIT",
     "dependencies": {
         "@zlanguage/zstdlib": "^0.4.1",
+        "babel": "^6.23.0",
+        "babel-cli": "^6.26.0",
         "jest": "^28.1.0",
         "koa": "^2.13.4",
         "moo": "^0.5.1",
