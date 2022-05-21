@@ -1,4 +1,7 @@
 dir a = 5
 dir b = 4
 dir c = zid(a b)
-kteb(c)
+dir f = ()->{
+    kteb(b)
+}
+kteb(f)

@@ -1,4 +1,4 @@
-function autoImport(functions) {
+function autoImport(functionss) {
     const map = {
         t2kedMnType: "types",
         rahObject: "types",
@@ -21,6 +21,7 @@ function autoImport(functions) {
         mnTal: "standard",
         lkolWahd: "standard"
     }
+    let functions = functionss.filter(onlyUnique)
     let importStatements = "";
     moduleToFunc = {}
     functions.forEach(element => {
@@ -35,6 +36,10 @@ function autoImport(functions) {
     })
 
     return importStatements;
+}
+
+function onlyUnique(value, index, self) {
+    return self.indexOf(value) === index;
 }
 module.exports = {
     autoImport
