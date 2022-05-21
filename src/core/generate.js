@@ -1,5 +1,5 @@
 const fs = require("mz/fs");
-
+var functions = [];
 async function main() {
     const filename = process.argv[2];
     if (!filename) {
@@ -25,6 +25,10 @@ function generateJsForStatements(statements) {
     return lines.join("\n");
 }
 
+function autoImport(functions) {
+
+}
+
 function generateJsForStatementOrExpr(node) {
     switch (node.type) {
         case "var_assign":
@@ -34,9 +38,7 @@ function generateJsForStatementOrExpr(node) {
             return js;
         case "fun_call":
             let funName = node.fun_name.value;
-            if (funName === "ilakan") {
-                funName = "$ilakan";
-            }
+            functions.push(funName);
             const argList = node.arguments.map((arg) => {
                 return generateJsForStatementOrExpr(arg);
             }).join(", ");

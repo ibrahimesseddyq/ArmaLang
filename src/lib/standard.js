@@ -50,7 +50,7 @@ function tyssawi(x, y) {
     return x === y;
 }
 
-function $ilakan(cond, consequent, alternate) {
+function ilakan(cond, consequent, alternate) {
     if (cond) {
         return consequent();
     } else {
