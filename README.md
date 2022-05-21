@@ -2,8 +2,7 @@
 ArmaLang is a programming Language based on darija and built to make learning coding simple
 for  morroccan people using:
 - Node.js
-- Nearly (Grammar Language)
-- Moo.js (Lexer )
+- Nearly (Grammar Describing Language)
 # Done  
 - variable declaration 
 - function definition with arrow functions
