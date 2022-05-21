@@ -38,7 +38,7 @@ function jider(x) {
     return Math.sqrt(x);
 }
 
-function _90wa(x, y) {
+function _9owa(x, y) {
     return Math.pow(x, y);
 }
 
