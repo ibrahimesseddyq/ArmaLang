@@ -7,7 +7,7 @@ describe("Testing Auto Import feature", () => {
     test("Import lsse9 and kteb", () => {
         expect(autoImport(autoImportTest("kteb,lsse9"))).toEqual(importTest["kteb,lsse9"])
     })
-    test("Import T2kedMnType and lsse9", () => {
+    test("Import t2kedMnType and lsse9", () => {
         expect(autoImport(autoImportTest("lsse9,t2kedMnType"))).toEqual(importTest["lsse9,t2kedMnType"])
     })
 })
