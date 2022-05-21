@@ -15,10 +15,12 @@ Here is some functionalities which will be available in the soon future:
 - function definition without arrow functions
 - return keyword
 - asynchronous
-- Design patterns
+- OOP support
 - Http module
-- Filesystem 
+- Filesystem Module
 - OS Module
 - Simple web Framework based on Koa
 # Documentation 
 the full documentation will be under docs directory
+- [Darija](./docs/documentation/darija/README.md);
+- [English](./docs/documentation/english/README.md)

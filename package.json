@@ -4,7 +4,8 @@
     "description": "ArmaLang is a programming Language based on darija and built to make learning coding simple",
     "main": "index.js",
     "scripts": {
-        "parse": "nearleyc ./src/core/arma.ne -o ./src/core/arma.js"
+        "parse": "nearleyc ./src/core/arma.ne -o ./src/core/arma.js",
+        "test": "jest ./tests/"
     },
     "keywords": [],
     "author": "",

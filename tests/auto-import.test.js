@@ -1,7 +1,13 @@
-const importTest = {
-    "kteb,lsse9": `const { kteb,lsse9 } = require('./../src/lib/standard ;\n`,
-    "t2kedMnType,lsse9": `const { lsse9 } = require('./../src/lib/standard ;\n
-    const { t2kedMnType } = require('./../src/lib/types ;\n`,
-
-
+const { importTest } = require("./auto-import.data");
+const { autoImport } = require("./../src/core/auto-import")
+const autoImportTest = (string) => {
+    return string.split(",");
 }
+describe("Testing Auto Import feature", () => {
+    test("Import lsse9 and kteb", () => {
+        expect(autoImport(autoImportTest("kteb,lsse9"))).toEqual(importTest["kteb,lsse9"])
+    })
+    test("Import T2kedMnType and lsse9", () => {
+        expect(autoImport(autoImportTest("lsse9,t2kedMnType"))).toEqual(importTest["lsse9,t2kedMnType"])
+    })
+})
