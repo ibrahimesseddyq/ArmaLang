@@ -2,6 +2,8 @@ function autoImport(functions) {
     const map = {
         t2kedMnType: "types",
         rahObject: "types",
+        ChmnType: "types",
+        mytbdlch: "types",
         kteb: "standard",
         zid: "standard",
         lsse9: "standard",

@@ -9,8 +9,6 @@ function zid(x, y) {
     return x + y;
 }
 
-
-
 function lsse9(s1, s2) {
     if (!s1.concat) {
         throw new Error(`${x} mt9derch tls9ha.`);
