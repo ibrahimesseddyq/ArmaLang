@@ -1,163 +1,72 @@
 [
   {
-    "type": "var_assign",
-    "var_name": {
+    "type": "funcdef",
+    "identifier": {
       "type": "identifier",
-      "value": "a",
-      "text": "a",
-      "offset": 4,
+      "value": "ad",
+      "text": "ad",
+      "offset": 5,
       "lineBreaks": 0,
       "line": 1,
-      "col": 5
+      "col": 6
     },
-    "value": {
-      "type": "number",
-      "value": "5",
-      "text": "5",
-      "offset": 8,
-      "lineBreaks": 0,
-      "line": 1,
-      "col": 9
-    }
-  },
-  {
-    "type": "var_assign",
-    "var_name": {
-      "type": "identifier",
-      "value": "b",
-      "text": "b",
-      "offset": 15,
-      "lineBreaks": 0,
-      "line": 2,
-      "col": 5
-    },
-    "value": {
-      "type": "number",
-      "value": "4",
-      "text": "4",
-      "offset": 19,
-      "lineBreaks": 0,
-      "line": 2,
-      "col": 9
-    }
-  },
-  {
-    "type": "var_assign",
-    "var_name": {
-      "type": "identifier",
-      "value": "c",
-      "text": "c",
-      "offset": 26,
-      "lineBreaks": 0,
-      "line": 3,
-      "col": 5
-    },
-    "value": {
-      "type": "fun_call",
-      "fun_name": {
-        "type": "identifier",
-        "value": "zid",
-        "text": "zid",
-        "offset": 30,
-        "lineBreaks": 0,
-        "line": 3,
-        "col": 9
-      },
-      "arguments": [
-        {
+    "parameters": [],
+    "body": [
+      {
+        "type": "var_assign",
+        "var_name": {
           "type": "identifier",
           "value": "a",
           "text": "a",
-          "offset": 34,
+          "offset": 20,
           "lineBreaks": 0,
-          "line": 3,
+          "line": 2,
+          "col": 9
+        },
+        "value": {
+          "type": "number",
+          "value": "5",
+          "text": "5",
+          "offset": 24,
+          "lineBreaks": 0,
+          "line": 2,
           "col": 13
-        },
-        {
+        }
+      },
+      {
+        "type": "fun_call",
+        "fun_name": {
           "type": "identifier",
-          "value": "b",
-          "text": "b",
-          "offset": 36,
+          "value": "kteb",
+          "text": "kteb",
+          "offset": 31,
           "lineBreaks": 0,
           "line": 3,
-          "col": 15
-        }
-      ]
-    }
-  },
-  {
-    "type": "var_assign",
-    "var_name": {
-      "type": "identifier",
-      "value": "fa",
-      "text": "fa",
-      "offset": 44,
-      "lineBreaks": 0,
-      "line": 4,
-      "col": 5
-    },
-    "value": {
-      "type": "lambda",
-      "parameters": [],
-      "body": [
-        {
-          "type": "fun_call",
-          "fun_name": {
-            "type": "identifier",
-            "value": "kteb",
-            "text": "kteb",
-            "offset": 60,
-            "lineBreaks": 0,
-            "line": 5,
-            "col": 5
-          },
-          "arguments": [
-            {
-              "type": "identifier",
-              "value": "a",
-              "text": "a",
-              "offset": 65,
-              "lineBreaks": 0,
-              "line": 5,
-              "col": 10
-            }
-          ]
+          "col": 5
         },
-        {
-          "type": "fun_call",
-          "fun_name": {
+        "arguments": [
+          {
             "type": "identifier",
-            "value": "kteb",
-            "text": "kteb",
-            "offset": 73,
+            "value": "a",
+            "text": "a",
+            "offset": 36,
             "lineBreaks": 0,
-            "line": 6,
-            "col": 5
-          },
-          "arguments": [
-            {
-              "type": "identifier",
-              "value": "b",
-              "text": "b",
-              "offset": 78,
-              "lineBreaks": 0,
-              "line": 6,
-              "col": 10
-            }
-          ]
-        }
-      ]
-    }
+            "line": 3,
+            "col": 10
+          }
+        ]
+      }
+    ]
   },
   {
     "type": "fun_call",
     "fun_name": {
       "type": "identifier",
-      "value": "fa",
-      "text": "fa",
-      "offset": 85,
+      "value": "ad",
+      "text": "ad",
+      "offset": 43,
       "lineBreaks": 0,
-      "line": 8,
+      "line": 5,
       "col": 1
     },
     "arguments": []

@@ -1,8 +1,5 @@
-dir a = 5
-dir b = 4
-dir c = zid(a b)
-dir fa = ()->{
+dala ad(){
+    dir a = 5
     kteb(a)
-    kteb(b)
 }
-fa()
+ad()

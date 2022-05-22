@@ -9,8 +9,6 @@ let lexer = moo.compile({
     vardec: "dir",
     funcdec: "dala",
     importjsdec: "jib-js",
-    lparen: "(",
-    rparen: ")",
     comment: /\/\/.*?$/,
     number: /0|[1-9][0-9]*/,
     string: /"(?:\\["\\]|[^\n"\\])*"/,

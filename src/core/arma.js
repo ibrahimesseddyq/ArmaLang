@@ -1,4 +1,4 @@
-// Generated automatically by nearley, version 2.19.5
+// Generated automatically by nearley, version 2.20.1
 // http://github.com/Hardmath123/nearley
 (function () {
 function id(x) { return x[0]; }
@@ -66,13 +66,13 @@ var grammar = {
     {"name": "func_def$ebnf$1$subexpression$1", "symbols": ["param_list", "_"]},
     {"name": "func_def$ebnf$1", "symbols": ["func_def$ebnf$1$subexpression$1"], "postprocess": id},
     {"name": "func_def$ebnf$1", "symbols": [], "postprocess": function(d) {return null;}},
-    {"name": "func_def", "symbols": [(myLexer.has("funcdec") ? {type: "funcdec"} : funcdec), "_", (myLexer.has("identifier") ? {type: "identifier"} : identifier), (myLexer.has("lparen") ? {type: "lparen"} : lparen), "_", "func_def$ebnf$1", (myLexer.has("rparen") ? {type: "rparen"} : rparen), (myLexer.has("fatarrow") ? {type: "fatarrow"} : fatarrow), "_ml", "lambda_body"], "postprocess":  
+    {"name": "func_def", "symbols": [(myLexer.has("funcdec") ? {type: "funcdec"} : funcdec), "_", (myLexer.has("identifier") ? {type: "identifier"} : identifier), (myLexer.has("lparen") ? {type: "lparen"} : lparen), "_", "func_def$ebnf$1", (myLexer.has("rparen") ? {type: "rparen"} : rparen), "_ml", "lambda_body"], "postprocess":  
         (data)=>{
             return {
                 type: "funcdef",
                 identifier:data[2],
-                arguments: data[5] ? data[5][0] : [],
-                body: data[9]
+                parameters: data[5] ? data[5][0] : [],
+                body: data[8]
             }
         }
             },

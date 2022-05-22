@@ -75,14 +75,14 @@ expr
     |  fun_call    {% id %}
     |  lambda      {% id %}
 func_def
-    -> %funcdec _ %identifier %lparen _ (param_list _):? %rparen %fatarrow _ml lambda_body
+    -> %funcdec _ %identifier %lparen _ (param_list _):? %rparen  _ml lambda_body
     {% 
         (data)=>{
             return {
                 type: "funcdef",
                 identifier:data[2],
-                arguments: data[5] ? data[5][0] : [],
-                body: data[9]
+                parameters: data[5] ? data[5][0] : [],
+                body: data[8]
             }
         }
     %}

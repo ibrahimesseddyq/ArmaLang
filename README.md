@@ -19,12 +19,13 @@ for  morroccan people using:
 - function calls
 - some builtin functions
 - if and while functions implemented partially
+- function definition without arrow functions
 
 # To Do List
 
 Here is some functionalities which will be available in the soon future:
-- function definition without arrow functions (working on)
 - return keyword
+- array && objects 
 - asynchronous
 - OOP support
 - Http module
