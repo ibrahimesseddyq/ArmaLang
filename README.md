@@ -1,4 +1,11 @@
 ## ArmaLang 
+<p align="center">
+  <img 
+    width="300"
+    height="300"
+    src="./assets/8.svg"
+  >
+</p>
 ArmaLang is a programming Language based on darija and built to make learning coding simple
 for  morroccan people using:
 - Node.js
