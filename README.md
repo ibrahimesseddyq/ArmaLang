@@ -37,3 +37,7 @@ Here is some functionalities which will be available in the soon future:
 the full documentation will be under docs directory
 - [Darija](./docs/documentation/darija/README.md);
 - [English](./docs/documentation/english/README.md)
+
+# People Who Contributed in the Project
+
+- ArmaLang Logo's made by Abdesslam El boukri @Abdessalam-Elboukri
