@@ -25,9 +25,10 @@ function autoImport(functionss) {
     let importStatements = "";
     moduleToFunc = {}
     functions.forEach(element => {
-        if (moduleToFunc[map[element]] == undefined) moduleToFunc[map[element]] = "";
-        moduleToFunc[map[element]] += element + ",";
-
+        if (map.hasOwnProperty(element)) {
+            if (moduleToFunc[map[element]] == undefined) moduleToFunc[map[element]] = "";
+            moduleToFunc[map[element]] += element + ",";
+        }
     });
     Object.keys(moduleToFunc).forEach((value) => {
         if (moduleToFunc[value[value.length - 1]] = ",")

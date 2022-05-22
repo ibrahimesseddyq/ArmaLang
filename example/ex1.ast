@@ -89,8 +89,8 @@
     "type": "var_assign",
     "var_name": {
       "type": "identifier",
-      "value": "f",
-      "text": "f",
+      "value": "fa",
+      "text": "fa",
       "offset": 44,
       "lineBreaks": 0,
       "line": 4,
@@ -106,7 +106,7 @@
             "type": "identifier",
             "value": "kteb",
             "text": "kteb",
-            "offset": 59,
+            "offset": 60,
             "lineBreaks": 0,
             "line": 5,
             "col": 5
@@ -114,11 +114,34 @@
           "arguments": [
             {
               "type": "identifier",
-              "value": "b",
-              "text": "b",
-              "offset": 64,
+              "value": "a",
+              "text": "a",
+              "offset": 65,
               "lineBreaks": 0,
               "line": 5,
+              "col": 10
+            }
+          ]
+        },
+        {
+          "type": "fun_call",
+          "fun_name": {
+            "type": "identifier",
+            "value": "kteb",
+            "text": "kteb",
+            "offset": 73,
+            "lineBreaks": 0,
+            "line": 6,
+            "col": 5
+          },
+          "arguments": [
+            {
+              "type": "identifier",
+              "value": "b",
+              "text": "b",
+              "offset": 78,
+              "lineBreaks": 0,
+              "line": 6,
               "col": 10
             }
           ]
@@ -130,23 +153,13 @@
     "type": "fun_call",
     "fun_name": {
       "type": "identifier",
-      "value": "kteb",
-      "text": "kteb",
-      "offset": 71,
+      "value": "fa",
+      "text": "fa",
+      "offset": 85,
       "lineBreaks": 0,
-      "line": 7,
+      "line": 8,
       "col": 1
     },
-    "arguments": [
-      {
-        "type": "identifier",
-        "value": "f",
-        "text": "f",
-        "offset": 76,
-        "lineBreaks": 0,
-        "line": 7,
-        "col": 6
-      }
-    ]
+    "arguments": []
   }
 ]
