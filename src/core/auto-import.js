@@ -33,7 +33,10 @@ function autoImport(functionss) {
     Object.keys(moduleToFunc).forEach((value) => {
         if (moduleToFunc[value[value.length - 1]] = ",")
             moduleToFunc[value] = moduleToFunc[value].slice(0, -1)
-        importStatements += `const { ${moduleToFunc[value]} } = require('./../src/lib/${value}') ;\n`;
+        if (!armaConfig.production)
+            importStatements += `const { ${moduleToFunc[value]} } = require('armalang/src/lib/${value}') ;\n`;
+        else
+            importStatements += `const { ${moduleToFunc[value]} } = require('./../src/lib/${value}') ;\n`;
     })
 
     return importStatements;
