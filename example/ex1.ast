@@ -1,0 +1,74 @@
+[
+  {
+    "type": "funcdef",
+    "identifier": {
+      "type": "identifier",
+      "value": "ad",
+      "text": "ad",
+      "offset": 5,
+      "lineBreaks": 0,
+      "line": 1,
+      "col": 6
+    },
+    "parameters": [],
+    "body": [
+      {
+        "type": "var_assign",
+        "var_name": {
+          "type": "identifier",
+          "value": "a",
+          "text": "a",
+          "offset": 20,
+          "lineBreaks": 0,
+          "line": 2,
+          "col": 9
+        },
+        "value": {
+          "type": "number",
+          "value": "5",
+          "text": "5",
+          "offset": 24,
+          "lineBreaks": 0,
+          "line": 2,
+          "col": 13
+        }
+      },
+      {
+        "type": "fun_call",
+        "fun_name": {
+          "type": "identifier",
+          "value": "kteb",
+          "text": "kteb",
+          "offset": 31,
+          "lineBreaks": 0,
+          "line": 3,
+          "col": 5
+        },
+        "arguments": [
+          {
+            "type": "identifier",
+            "value": "a",
+            "text": "a",
+            "offset": 36,
+            "lineBreaks": 0,
+            "line": 3,
+            "col": 10
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "type": "fun_call",
+    "fun_name": {
+      "type": "identifier",
+      "value": "ad",
+      "text": "ad",
+      "offset": 43,
+      "lineBreaks": 0,
+      "line": 5,
+      "col": 1
+    },
+    "arguments": []
+  }
+]

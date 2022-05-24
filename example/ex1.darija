@@ -1,0 +1,5 @@
+dala ad(){
+    dir a = 5
+    kteb(a)
+}
+ad()

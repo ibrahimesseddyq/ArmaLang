@@ -1,0 +1,25 @@
+{
+    "name": "armalang",
+    "version": "1.0.1",
+    "description": "ArmaLang is a programming Language based on darija and built to make learning coding simple",
+    "main": "index.js",
+    "scripts": {
+        "parse": "nearleyc ./src/core/arma.ne -o ./src/core/arma.js",
+        "test": "jest ./tests/"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "MIT",
+    "dependencies": {
+        "@zlanguage/zstdlib": "^0.4.1",
+        "babel": "^6.23.0",
+        "babel-cli": "^6.26.0",
+        "jest": "^28.1.0",
+        "koa": "^2.13.4",
+        "moo": "^0.5.1",
+        "mz": "^2.7.0",
+        "nearley": "^2.19.5",
+        "phptojs": "^9.0.1",
+        "voca": "^1.4.0"
+    }
+}
