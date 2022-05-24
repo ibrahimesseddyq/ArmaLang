@@ -1,6 +1,6 @@
 {
     "name": "armalang",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "description": "ArmaLang is a programming Language based on darija and built to make learning coding simple",
     "main": "index.js",
     "scripts": {

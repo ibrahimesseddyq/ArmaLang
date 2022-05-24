@@ -1,6 +1,5 @@
 const armaConfig = {
-    useCustomFilePath: true,
-    bootstrapPath: "./example/ex1.darija"
+    production: true
 }
 module.exports = {
     armaConfig

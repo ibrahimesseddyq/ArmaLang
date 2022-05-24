@@ -9,6 +9,9 @@ let lexer = moo.compile({
     vardec: "dir",
     funcdec: "dala",
     importjsdec: "jib-js",
+    returnkey: "reje3",
+    ifexp: 'ilakan',
+    whileexp: "mahed",
     comment: /\/\/.*?$/,
     number: /0|[1-9][0-9]*/,
     string: /"(?:\\["\\]|[^\n"\\])*"/,
@@ -17,8 +20,7 @@ let lexer = moo.compile({
     identifier: /[a-zA-Z][a-zA-Z_0-9]*/,
     fatarrow: '->',
     assign: '=',
-    ifexp: 'ilakan',
-    whileexp: "mahed",
+
     NL: { match: /\r?\n/, lineBreaks: true }
 });
 

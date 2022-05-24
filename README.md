@@ -15,16 +15,16 @@ for  morroccan people using:
 # Done  
 
 - variable declaration 
-- function definition with arrow functions
+- arrow functions
 - function calls
 - some builtin functions
 - if and while functions implemented partially
-- function definition without arrow functions
+- function definition 
 
 # To Do List
 
 Here is some functionalities which will be available in the soon future:
-- return keyword
+- return keyword 
 - array && objects 
 - asynchronous
 - OOP support
