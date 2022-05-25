@@ -75,6 +75,7 @@ var grammar = {
     {"name": "expr", "symbols": ["fun_call"], "postprocess": id},
     {"name": "expr", "symbols": ["lambda"], "postprocess": id},
     {"name": "expr", "symbols": ["boolean"], "postprocess": id},
+    {"name": "expr", "symbols": ["operations"], "postprocess": id},
     {"name": "func_def$ebnf$1$subexpression$1", "symbols": ["param_list", "_"]},
     {"name": "func_def$ebnf$1", "symbols": ["func_def$ebnf$1$subexpression$1"], "postprocess": id},
     {"name": "func_def$ebnf$1", "symbols": [], "postprocess": function(d) {return null;}},
@@ -130,6 +131,41 @@ var grammar = {
             
         }
             },
+    {"name": "operation", "symbols": [(myLexer.has("number") ? {type: "number"} : number), "_", (myLexer.has("operator") ? {type: "operator"} : operator), "_", (myLexer.has("number") ? {type: "number"} : number)], "postprocess":  
+        (data)=> {
+                            console.log("ops",data[0] +data[2]+data[4])
+            return data[0] +data[2]+data[4]}
+            },
+    {"name": "operations", "symbols": ["operation", "_", (myLexer.has("operator") ? {type: "operator"} : operator), "_", "operations"], "postprocess": 
+                (data)=>{
+                    console.log("ops",[data[0],data[2],data[4].value].join(""))
+            return {
+                type:"operation",
+                value:[data[0],data[2],data[4].value].join("") // 3+6*7*6 ["3+6","*7"]
+            }
+        } 
+        
+        },
+    {"name": "operations", "symbols": ["operation", "_", (myLexer.has("operator") ? {type: "operator"} : operator), "_", (myLexer.has("number") ? {type: "number"} : number)], "postprocess": 
+        (data)=>{
+                            console.log("op1",data)
+        
+            return{
+                type:"operation",
+                value: data[0]+data[2]+data[4]
+            }
+        }
+            },
+    {"name": "operations", "symbols": ["operation"], "postprocess": 
+                (data)=>{
+                                    console.log("op2",data)
+        
+            return {
+                type:"operation",
+                value:data[0]
+            }
+        }
+        },
     {"name": "__lb_$ebnf$1$subexpression$1", "symbols": ["_", (myLexer.has("NL") ? {type: "NL"} : NL)]},
     {"name": "__lb_$ebnf$1", "symbols": ["__lb_$ebnf$1$subexpression$1"]},
     {"name": "__lb_$ebnf$1$subexpression$2", "symbols": ["_", (myLexer.has("NL") ? {type: "NL"} : NL)]},

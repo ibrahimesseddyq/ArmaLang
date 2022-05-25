@@ -6,6 +6,7 @@ const myLexer = require("./lexer");
 # import_js
 #     -> "<" %importjsdec ">" _ js _ "</" %importjsdec ">"
 # Defining the program structure
+
 program
     -> _ml statements _ml
         {%
@@ -86,7 +87,11 @@ arg_list
             }
         %}
 #Defining what a expression could be
-
+# operation
+#     -> expr _ %operator _ expr 
+#     {% 
+#         (data)=> data[0] +data[2]+data[4]
+#     %}
 expr
     -> %string     {% id %}
     |  %number     {% id %}
@@ -94,6 +99,7 @@ expr
     |  fun_call    {% id %}
     |  lambda      {% id %}
     | boolean {% id %}
+    | operations {% id%}
     #Defining function definition structure
 
 func_def
@@ -158,9 +164,47 @@ ifstat
         }
     %}
 operation
-    -> expression %operator expression
-# operations
-#     -> operation
+    -> %number _ %operator _ %number 
+    {% 
+        (data)=> {
+                            console.log("ops",data[0] +data[2]+data[4])
+            return data[0] +data[2]+data[4]}
+    %}
+operations
+    -> operation _ %operator _ operations {%
+            (data)=>{
+                console.log("ops",[data[0],data[2],data[4].value].join(""))
+        return {
+            type:"operation",
+            value:[data[0],data[2],data[4].value].join("") // 3+6*7*6 ["3+6","*7"]
+        }
+    } 
+
+    %}
+    
+    | operation _ %operator _ %number 
+    {%
+        (data)=>{
+                            console.log("op1",data)
+
+            return{
+                type:"operation",
+                value: data[0]+data[2]+data[4]
+            }
+        }
+    %}
+    | operation {%
+            (data)=>{
+                                console.log("op2",data)
+
+        return {
+            type:"operation",
+            value:data[0]
+        }
+    }
+    %}
+    
+    
 # Mandatory line-break with optional whitespace around it
 __lb_ -> (_ %NL):+ _
 

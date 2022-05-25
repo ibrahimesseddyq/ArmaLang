@@ -8,7 +8,7 @@
         "test": "jest ./tests/"
     },
     "keywords": [],
-    "author": "",
+    "author": "Ibrahim Esseddyq <ibrahim.essedyq@gmail.com>",
     "license": "MIT",
     "dependencies": {
         "jest": "^28.1.0",

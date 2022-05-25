@@ -34,6 +34,7 @@ function generateJsForStatements(statements) {
 function generateJsForStatementOrExpr(node) {
     let paramList;
     let jsBody;
+    console.log(node)
     switch (node.type) {
         case "var_assign":
             const varName = node.var_name.value;
@@ -79,13 +80,14 @@ function generateJsForStatementOrExpr(node) {
             return "";
         case "if":
             let expression = node.condition;
-            console.log(expression)
-                // expression = expression == "wah" ? "true" : "false";
+            // expression = expression == "wah" ? "true" : "false";
             jsBody = node.body.map((arg, i) => {
                 const jsCode = generateJsForStatementOrExpr(arg);
                 return jsCode;
             }).join(";\n")
             return `if(${expression}){${jsBody}}`;
+        case "operation":
+            return node.value;
     }
 }
 
