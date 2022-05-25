@@ -17,8 +17,7 @@ for  morroccan people using:
 - variable declaration 
 - arrow functions
 - function calls
-- some builtin functions
-- if and while functions implemented partially
+- some builtin functions statements
 - function definition 
 
 # To Do List
