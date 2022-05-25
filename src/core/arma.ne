@@ -5,6 +5,7 @@ const myLexer = require("./lexer");
 @lexer myLexer
 # import_js
 #     -> "<" %importjsdec ">" _ js _ "</" %importjsdec ">"
+# Defining the program structure
 program
     -> _ml statements _ml
         {%
@@ -12,7 +13,7 @@ program
                 return data[1];
             }
         %}
-
+#Defining statement structure
 statements
     ->  statement (__lb_ statement):*
         {%
@@ -22,6 +23,21 @@ statements
                 return [data[0], ...restStatements];
             }
         %}
+#Defining Boolean
+
+boolean
+    ->  %boolean  {%
+        (data)=>{
+            console.log(data)
+            if(data == "wah"){
+                return "true";
+            }
+            else
+                return "false"
+            return data == "wah" ? "true":"false";
+        }
+    %}
+#Defining what a statement could be
 
 statement
     -> var_assign  {% id %}
@@ -29,6 +45,7 @@ statement
     |  %comment    {% id %}
     | ifstat {% id %}
     | func_def {% id %}
+#Defining variable assignement 
 
 var_assign
     -> %vardec _ %identifier _ "=" _ expr
@@ -41,6 +58,7 @@ var_assign
                 }
             }
         %}
+#Defining function call 
 
 fun_call
     -> %identifier _ "(" _ml (arg_list _ml):? ")"
@@ -67,6 +85,7 @@ arg_list
                 return [...data[0], data[2]];
             }
         %}
+#Defining what a expression could be
 
 expr
     -> %string     {% id %}
@@ -74,6 +93,9 @@ expr
     |  %identifier {% id %}
     |  fun_call    {% id %}
     |  lambda      {% id %}
+    | boolean {% id %}
+    #Defining function definition structure
+
 func_def
     -> %funcdec _ %identifier %lparen _ (param_list _):? %rparen  _ml lambda_body
     {% 
@@ -86,6 +108,7 @@ func_def
             }
         }
     %}
+    #Defining a lambda function 
 lambda -> "(" _ (param_list _):? ")" _ "->" _ml lambda_body
     {%
         (data) => {
@@ -106,6 +129,7 @@ param_list
                 return [data[0], ...restParams];
             }
         %}
+#Defining lambda body 
 
 lambda_body
     -> expr
@@ -120,8 +144,23 @@ lambda_body
                 return data[2];
             }
         %}
+#Defining if statement 
+
 ifstat
-    ->%ifexp expr "{" __lb_ statements __lb_ "}"
+    ->%ifexp __ expr _ml "{" __lb_ statements __lb_ "}" {% 
+        (data)=>{
+            return {
+                type:"if",
+                condition:data[2],
+                body:data[6]
+            }
+            
+        }
+    %}
+operation
+    -> expression %operator expression
+# operations
+#     -> operation
 # Mandatory line-break with optional whitespace around it
 __lb_ -> (_ %NL):+ _
 

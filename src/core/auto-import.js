@@ -1,3 +1,5 @@
+const { armaConfig } = require("./../../arma.config")
+
 function autoImport(functionss) {
     const map = {
         t2kedMnType: "types",
@@ -34,9 +36,9 @@ function autoImport(functionss) {
         if (moduleToFunc[value[value.length - 1]] = ",")
             moduleToFunc[value] = moduleToFunc[value].slice(0, -1)
         if (!armaConfig.production)
-            importStatements += `const { ${moduleToFunc[value]} } = require('armalang/src/lib/${value}') ;\n`;
-        else
             importStatements += `const { ${moduleToFunc[value]} } = require('./../src/lib/${value}') ;\n`;
+        else
+            importStatements += `const { ${moduleToFunc[value]} } = require('armalang/src/lib/${value}') ;\n`;
     })
 
     return importStatements;

@@ -77,6 +77,15 @@ function generateJsForStatementOrExpr(node) {
             return `function ${funcName}(${paramList}) {\n${indent(jsBody)}\n}`;
         case "comment":
             return "";
+        case "if":
+            let expression = node.condition;
+            console.log(expression)
+                // expression = expression == "wah" ? "true" : "false";
+            jsBody = node.body.map((arg, i) => {
+                const jsCode = generateJsForStatementOrExpr(arg);
+                return jsCode;
+            }).join(";\n")
+            return `if(${expression}){${jsBody}}`;
     }
 }
 

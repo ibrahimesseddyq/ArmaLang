@@ -1,5 +1,12 @@
-dala ad(){
-    dir a = 5
-    kteb(a)
+ilakan wah
+{
+    kteb(4)
+    kteb(2)
+        kteb(4)
+    kteb(4)
+ilakan wah{
+        kteb(4)
+    kteb(4)
+
 }
-ad()
+}

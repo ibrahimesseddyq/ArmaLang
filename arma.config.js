@@ -1,5 +1,5 @@
 const armaConfig = {
-    production: true
+    production: false
 }
 module.exports = {
     armaConfig

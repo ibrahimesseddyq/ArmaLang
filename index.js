@@ -29,6 +29,7 @@ async function armaLang(fn = undefined) {
         console.log(jsFilename)
         await Execute(`node ${jsFilename}`);
     }
+
 }
 
 async function Execute(command) {

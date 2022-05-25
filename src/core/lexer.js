@@ -3,6 +3,8 @@ const fs = require("mz/fs");
 
 let lexer = moo.compile({
     WS: /[ \t]+/,
+    boolean: /wah|la/,
+    operator: /+|-|*|%/
     ecSign: "--",
     lparen: '(',
     rparen: ')',

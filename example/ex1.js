@@ -1,6 +1,7 @@
 const { kteb } = require('./../src/lib/standard') ;
-function ad() {
-    var a = 5;;
-    kteb(a)
-}
-ad()
+if(true){kteb(4);
+kteb(2);
+kteb(4);
+kteb(4);
+if(true){kteb(4);
+kteb(4)}}
