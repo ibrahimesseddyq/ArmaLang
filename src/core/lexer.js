@@ -4,7 +4,6 @@ const fs = require("mz/fs");
 let lexer = moo.compile({
     WS: /[ \t]+/,
     boolean: /wah|la/,
-    operator: /[-+/*]{1}/,
     ecSign: "--",
     lparen: '(',
     rparen: ')',
@@ -21,6 +20,8 @@ let lexer = moo.compile({
     rbrace: '}',
     identifier: /[a-zA-Z][a-zA-Z_0-9]*/,
     fatarrow: '->',
+    operator: /[-+/*]{1}/,
+
     assign: '=',
 
     NL: { match: /\r?\n/, lineBreaks: true }

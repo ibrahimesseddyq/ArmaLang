@@ -6,7 +6,7 @@ const myLexer = require("./lexer");
 # import_js
 #     -> "<" %importjsdec ">" _ js _ "</" %importjsdec ">"
 # Defining the program structure
-
+################################## Program ##################################
 program
     -> _ml statements _ml
         {%
@@ -14,18 +14,8 @@ program
                 return data[1];
             }
         %}
-#Defining statement structure
-statements
-    ->  statement (__lb_ statement):*
-        {%
-            (data) => {
-                const repeated = data[1];
-                const restStatements = repeated.map(chunks => chunks[1]);
-                return [data[0], ...restStatements];
-            }
-        %}
-#Defining Boolean
 
+################################## Types ##################################
 boolean
     ->  %boolean  {%
         (data)=>{
@@ -38,16 +28,32 @@ boolean
             return data == "wah" ? "true":"false";
         }
     %}
-#Defining what a statement could be
-
+################################## Statement & Expressions ##################################
+statements
+    ->  statement (__lb_ statement):*
+        {%
+            (data) => {
+                const repeated = data[1];
+                const restStatements = repeated.map(chunks => chunks[1]);
+                return [data[0], ...restStatements];
+            }
+        %}
 statement
     -> var_assign  {% id %}
     |  fun_call    {% id %}
     |  %comment    {% id %}
-    | ifstat {% id %}
-    | func_def {% id %}
-#Defining variable assignement 
-
+    | ifstatement {% id %}
+    | func_definition {% id %}
+    | returnStatement {% id %}
+expr
+    -> %string     {% id %}
+    |  %number     {% id %}
+    |  %identifier {% id %}
+    |  fun_call    {% id %}
+    |  lambda      {% id %}
+    | boolean {% id %}
+    | operation {% id%}
+################################## Variable Assignement ##################################
 var_assign
     -> %vardec _ %identifier _ "=" _ expr
         {%
@@ -59,50 +65,8 @@ var_assign
                 }
             }
         %}
-#Defining function call 
-
-fun_call
-    -> %identifier _ "(" _ml (arg_list _ml):? ")"
-        {%
-            (data) => {
-                return {
-                    type: "fun_call",
-                    fun_name: data[0],
-                    arguments: data[4] ? data[4][0] : []
-                }
-            }
-        %}
-
-arg_list
-    -> expr
-        {%
-            (data) => {
-                return [data[0]];
-            }
-        %}
-    |  arg_list __ml expr
-        {%
-            (data) => {
-                return [...data[0], data[2]];
-            }
-        %}
-#Defining what a expression could be
-# operation
-#     -> expr _ %operator _ expr 
-#     {% 
-#         (data)=> data[0] +data[2]+data[4]
-#     %}
-expr
-    -> %string     {% id %}
-    |  %number     {% id %}
-    |  %identifier {% id %}
-    |  fun_call    {% id %}
-    |  lambda      {% id %}
-    | boolean {% id %}
-    | operations {% id%}
-    #Defining function definition structure
-
-func_def
+################################## Functions ##################################
+func_definition
     -> %funcdec _ %identifier %lparen _ (param_list _):? %rparen  _ml lambda_body
     {% 
         (data)=>{
@@ -135,7 +99,6 @@ param_list
                 return [data[0], ...restParams];
             }
         %}
-#Defining lambda body 
 
 lambda_body
     -> expr
@@ -150,9 +113,45 @@ lambda_body
                 return data[2];
             }
         %}
-#Defining if statement 
+fun_call
+    -> %identifier _ "(" _ml (arg_list _ml):? ")"
+        {%
+            (data) => {
+                return {
+                    type: "fun_call",
+                    fun_name: data[0],
+                    arguments: data[4] ? data[4][0] : []
+                }
+            }
+        %}
 
-ifstat
+arg_list
+    -> expr
+        {%
+            (data) => {
+                return [data[0]];
+            }
+        %}
+    |  arg_list __ml expr
+        {%
+            (data) => {
+                return [...data[0], data[2]];
+            }
+        %}
+returnStatement
+    -> %returnkey _ expr 
+    {%
+        (data)=>{
+                console.log(data)
+
+            return{
+                type:"return",
+                value: data[2].value 
+            }
+        }
+    %}
+################################## If && Else ##################################
+ifstatement
     ->%ifexp __ expr _ml "{" __lb_ statements __lb_ "}" {% 
         (data)=>{
             return {
@@ -163,48 +162,50 @@ ifstat
             
         }
     %}
+
 operation
-    -> %number _ %operator _ %number 
+    -> %number _ %operator _ operation
     {% 
         (data)=> {
-                            console.log("ops",data[0] +data[2]+data[4])
-            return data[0] +data[2]+data[4]}
-    %}
-operations
-    -> operation _ %operator _ operations {%
-            (data)=>{
-                console.log("ops",[data[0],data[2],data[4].value].join(""))
-        return {
-            type:"operation",
-            value:[data[0],data[2],data[4].value].join("") // 3+6*7*6 ["3+6","*7"]
-        }
-    } 
-
-    %}
-    
-    | operation _ %operator _ %number 
-    {%
-        (data)=>{
-                            console.log("op1",data)
-
-            return{
-                type:"operation",
-                value: data[0]+data[2]+data[4]
-            }
+            return {
+                value:`${data[0]} ${data[2]} ${data[4].value ? data[4].value:data[4]}`,
+                type:"operation"}
         }
     %}
-    | operation {%
-            (data)=>{
-                                console.log("op2",data)
+    | %number
+# operations
+#     -> operation _ %operator _ operations {%
+#             (data)=>{
+#                 console.log("ops",[data[0],data[2],data[4].value].join(""))
+#         return {
+#             type:"operation",
+#             value:[data[0],data[2],data[4].value].join("") // 3+6*7*6 ["3+6","*7"]
+#         }
+#     } 
 
-        return {
-            type:"operation",
-            value:data[0]
-        }
-    }
-    %}
+#     %}
     
-    
+#     | operation _ %operator _ expr 
+#     {%
+#         (data)=>{
+#             return{
+#                 type:"operation",
+#                 value: data[0]+data[2]+data[4]
+#             }
+#         }
+#     %}
+#     | operation {%
+#             (data)=>{
+
+#         return {
+#             type:"operation",
+#             value:data[0]
+#         }
+#     }
+#     %}
+
+## 3+4*3 n op n
+################################## Spaces && Multilines ##################################
 # Mandatory line-break with optional whitespace around it
 __lb_ -> (_ %NL):+ _
 
@@ -219,3 +220,20 @@ _ -> %WS:*
 
 # Mandatory whitespace
 __ -> %WS:+
+
+
+######################### ARRAYS #########################################
+array 
+    ->"[" array_list "]"
+    | "[" _ "]"
+array_items
+    ->expr 
+    {% 
+    (data)=>[data[0]]
+    %}
+    |expr "," array_items 
+    {%
+        (data)=>{
+            return [data[0],...data[2]]
+        }
+    %}

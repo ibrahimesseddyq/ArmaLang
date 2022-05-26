@@ -1,28 +1,40 @@
 [
   {
+    "type": "var_assign",
+    "var_name": {
+      "type": "identifier",
+      "value": "a",
+      "text": "a",
+      "offset": 9,
+      "lineBreaks": 0,
+      "line": 1,
+      "col": 10
+    },
+    "value": {
+      "value": "6 + 7 + 4 - 8 * 2",
+      "type": "operation"
+    }
+  },
+  {
     "type": "fun_call",
     "fun_name": {
       "type": "identifier",
       "value": "kteb",
       "text": "kteb",
-      "offset": 0,
+      "offset": 37,
       "lineBreaks": 0,
-      "line": 1,
-      "col": 1
+      "line": 2,
+      "col": 6
     },
     "arguments": [
       {
-        "type": "number",
-        "value": "1",
-        "text": "1",
-        "offset": 5,
+        "type": "identifier",
+        "value": "a",
+        "text": "a",
+        "offset": 42,
         "lineBreaks": 0,
-        "line": 1,
-        "col": 6
-      },
-      {
-        "type": "operation",
-        "value": "12*2"
+        "line": 2,
+        "col": 11
       }
     ]
   }

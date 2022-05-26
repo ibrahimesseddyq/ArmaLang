@@ -12,16 +12,6 @@ var grammar = {
             return data[1];
         }
                 },
-    {"name": "statements$ebnf$1", "symbols": []},
-    {"name": "statements$ebnf$1$subexpression$1", "symbols": ["__lb_", "statement"]},
-    {"name": "statements$ebnf$1", "symbols": ["statements$ebnf$1", "statements$ebnf$1$subexpression$1"], "postprocess": function arrpush(d) {return d[0].concat([d[1]]);}},
-    {"name": "statements", "symbols": ["statement", "statements$ebnf$1"], "postprocess": 
-        (data) => {
-            const repeated = data[1];
-            const restStatements = repeated.map(chunks => chunks[1]);
-            return [data[0], ...restStatements];
-        }
-                },
     {"name": "boolean", "symbols": [(myLexer.has("boolean") ? {type: "boolean"} : boolean)], "postprocess": 
         (data)=>{
             console.log(data)
@@ -33,11 +23,29 @@ var grammar = {
             return data == "wah" ? "true":"false";
         }
             },
+    {"name": "statements$ebnf$1", "symbols": []},
+    {"name": "statements$ebnf$1$subexpression$1", "symbols": ["__lb_", "statement"]},
+    {"name": "statements$ebnf$1", "symbols": ["statements$ebnf$1", "statements$ebnf$1$subexpression$1"], "postprocess": function arrpush(d) {return d[0].concat([d[1]]);}},
+    {"name": "statements", "symbols": ["statement", "statements$ebnf$1"], "postprocess": 
+        (data) => {
+            const repeated = data[1];
+            const restStatements = repeated.map(chunks => chunks[1]);
+            return [data[0], ...restStatements];
+        }
+                },
     {"name": "statement", "symbols": ["var_assign"], "postprocess": id},
     {"name": "statement", "symbols": ["fun_call"], "postprocess": id},
     {"name": "statement", "symbols": [(myLexer.has("comment") ? {type: "comment"} : comment)], "postprocess": id},
-    {"name": "statement", "symbols": ["ifstat"], "postprocess": id},
-    {"name": "statement", "symbols": ["func_def"], "postprocess": id},
+    {"name": "statement", "symbols": ["ifstatement"], "postprocess": id},
+    {"name": "statement", "symbols": ["func_definition"], "postprocess": id},
+    {"name": "statement", "symbols": ["returnStatement"], "postprocess": id},
+    {"name": "expr", "symbols": [(myLexer.has("string") ? {type: "string"} : string)], "postprocess": id},
+    {"name": "expr", "symbols": [(myLexer.has("number") ? {type: "number"} : number)], "postprocess": id},
+    {"name": "expr", "symbols": [(myLexer.has("identifier") ? {type: "identifier"} : identifier)], "postprocess": id},
+    {"name": "expr", "symbols": ["fun_call"], "postprocess": id},
+    {"name": "expr", "symbols": ["lambda"], "postprocess": id},
+    {"name": "expr", "symbols": ["boolean"], "postprocess": id},
+    {"name": "expr", "symbols": ["operation"], "postprocess": id},
     {"name": "var_assign", "symbols": [(myLexer.has("vardec") ? {type: "vardec"} : vardec), "_", (myLexer.has("identifier") ? {type: "identifier"} : identifier), "_", {"literal":"="}, "_", "expr"], "postprocess": 
         (data) => {
             return {
@@ -47,39 +55,10 @@ var grammar = {
             }
         }
                 },
-    {"name": "fun_call$ebnf$1$subexpression$1", "symbols": ["arg_list", "_ml"]},
-    {"name": "fun_call$ebnf$1", "symbols": ["fun_call$ebnf$1$subexpression$1"], "postprocess": id},
-    {"name": "fun_call$ebnf$1", "symbols": [], "postprocess": function(d) {return null;}},
-    {"name": "fun_call", "symbols": [(myLexer.has("identifier") ? {type: "identifier"} : identifier), "_", {"literal":"("}, "_ml", "fun_call$ebnf$1", {"literal":")"}], "postprocess": 
-        (data) => {
-            return {
-                type: "fun_call",
-                fun_name: data[0],
-                arguments: data[4] ? data[4][0] : []
-            }
-        }
-                },
-    {"name": "arg_list", "symbols": ["expr"], "postprocess": 
-        (data) => {
-            return [data[0]];
-        }
-                },
-    {"name": "arg_list", "symbols": ["arg_list", "__ml", "expr"], "postprocess": 
-        (data) => {
-            return [...data[0], data[2]];
-        }
-                },
-    {"name": "expr", "symbols": [(myLexer.has("string") ? {type: "string"} : string)], "postprocess": id},
-    {"name": "expr", "symbols": [(myLexer.has("number") ? {type: "number"} : number)], "postprocess": id},
-    {"name": "expr", "symbols": [(myLexer.has("identifier") ? {type: "identifier"} : identifier)], "postprocess": id},
-    {"name": "expr", "symbols": ["fun_call"], "postprocess": id},
-    {"name": "expr", "symbols": ["lambda"], "postprocess": id},
-    {"name": "expr", "symbols": ["boolean"], "postprocess": id},
-    {"name": "expr", "symbols": ["operations"], "postprocess": id},
-    {"name": "func_def$ebnf$1$subexpression$1", "symbols": ["param_list", "_"]},
-    {"name": "func_def$ebnf$1", "symbols": ["func_def$ebnf$1$subexpression$1"], "postprocess": id},
-    {"name": "func_def$ebnf$1", "symbols": [], "postprocess": function(d) {return null;}},
-    {"name": "func_def", "symbols": [(myLexer.has("funcdec") ? {type: "funcdec"} : funcdec), "_", (myLexer.has("identifier") ? {type: "identifier"} : identifier), (myLexer.has("lparen") ? {type: "lparen"} : lparen), "_", "func_def$ebnf$1", (myLexer.has("rparen") ? {type: "rparen"} : rparen), "_ml", "lambda_body"], "postprocess":  
+    {"name": "func_definition$ebnf$1$subexpression$1", "symbols": ["param_list", "_"]},
+    {"name": "func_definition$ebnf$1", "symbols": ["func_definition$ebnf$1$subexpression$1"], "postprocess": id},
+    {"name": "func_definition$ebnf$1", "symbols": [], "postprocess": function(d) {return null;}},
+    {"name": "func_definition", "symbols": [(myLexer.has("funcdec") ? {type: "funcdec"} : funcdec), "_", (myLexer.has("identifier") ? {type: "identifier"} : identifier), (myLexer.has("lparen") ? {type: "lparen"} : lparen), "_", "func_definition$ebnf$1", (myLexer.has("rparen") ? {type: "rparen"} : rparen), "_ml", "lambda_body"], "postprocess":  
         (data)=>{
             return {
                 type: "funcdef",
@@ -121,7 +100,39 @@ var grammar = {
             return data[2];
         }
                 },
-    {"name": "ifstat", "symbols": [(myLexer.has("ifexp") ? {type: "ifexp"} : ifexp), "__", "expr", "_ml", {"literal":"{"}, "__lb_", "statements", "__lb_", {"literal":"}"}], "postprocess":  
+    {"name": "fun_call$ebnf$1$subexpression$1", "symbols": ["arg_list", "_ml"]},
+    {"name": "fun_call$ebnf$1", "symbols": ["fun_call$ebnf$1$subexpression$1"], "postprocess": id},
+    {"name": "fun_call$ebnf$1", "symbols": [], "postprocess": function(d) {return null;}},
+    {"name": "fun_call", "symbols": [(myLexer.has("identifier") ? {type: "identifier"} : identifier), "_", {"literal":"("}, "_ml", "fun_call$ebnf$1", {"literal":")"}], "postprocess": 
+        (data) => {
+            return {
+                type: "fun_call",
+                fun_name: data[0],
+                arguments: data[4] ? data[4][0] : []
+            }
+        }
+                },
+    {"name": "arg_list", "symbols": ["expr"], "postprocess": 
+        (data) => {
+            return [data[0]];
+        }
+                },
+    {"name": "arg_list", "symbols": ["arg_list", "__ml", "expr"], "postprocess": 
+        (data) => {
+            return [...data[0], data[2]];
+        }
+                },
+    {"name": "returnStatement", "symbols": [(myLexer.has("returnkey") ? {type: "returnkey"} : returnkey), "_", "expr"], "postprocess": 
+        (data)=>{
+                console.log(data)
+        
+            return{
+                type:"return",
+                value: data[2].value 
+            }
+        }
+            },
+    {"name": "ifstatement", "symbols": [(myLexer.has("ifexp") ? {type: "ifexp"} : ifexp), "__", "expr", "_ml", {"literal":"{"}, "__lb_", "statements", "__lb_", {"literal":"}"}], "postprocess":  
         (data)=>{
             return {
                 type:"if",
@@ -131,41 +142,14 @@ var grammar = {
             
         }
             },
-    {"name": "operation", "symbols": [(myLexer.has("number") ? {type: "number"} : number), "_", (myLexer.has("operator") ? {type: "operator"} : operator), "_", (myLexer.has("number") ? {type: "number"} : number)], "postprocess":  
+    {"name": "operation", "symbols": [(myLexer.has("number") ? {type: "number"} : number), "_", (myLexer.has("operator") ? {type: "operator"} : operator), "_", "operation"], "postprocess":  
         (data)=> {
-                            console.log("ops",data[0] +data[2]+data[4])
-            return data[0] +data[2]+data[4]}
-            },
-    {"name": "operations", "symbols": ["operation", "_", (myLexer.has("operator") ? {type: "operator"} : operator), "_", "operations"], "postprocess": 
-                (data)=>{
-                    console.log("ops",[data[0],data[2],data[4].value].join(""))
             return {
-                type:"operation",
-                value:[data[0],data[2],data[4].value].join("") // 3+6*7*6 ["3+6","*7"]
-            }
-        } 
-        
-        },
-    {"name": "operations", "symbols": ["operation", "_", (myLexer.has("operator") ? {type: "operator"} : operator), "_", (myLexer.has("number") ? {type: "number"} : number)], "postprocess": 
-        (data)=>{
-                            console.log("op1",data)
-        
-            return{
-                type:"operation",
-                value: data[0]+data[2]+data[4]
-            }
+                value:`${data[0]} ${data[2]} ${data[4].value ? data[4].value:data[4]}`,
+                type:"operation"}
         }
             },
-    {"name": "operations", "symbols": ["operation"], "postprocess": 
-                (data)=>{
-                                    console.log("op2",data)
-        
-            return {
-                type:"operation",
-                value:data[0]
-            }
-        }
-        },
+    {"name": "operation", "symbols": [(myLexer.has("number") ? {type: "number"} : number)]},
     {"name": "__lb_$ebnf$1$subexpression$1", "symbols": ["_", (myLexer.has("NL") ? {type: "NL"} : NL)]},
     {"name": "__lb_$ebnf$1", "symbols": ["__lb_$ebnf$1$subexpression$1"]},
     {"name": "__lb_$ebnf$1$subexpression$2", "symbols": ["_", (myLexer.has("NL") ? {type: "NL"} : NL)]},
@@ -188,7 +172,17 @@ var grammar = {
     {"name": "_", "symbols": ["_$ebnf$1"]},
     {"name": "__$ebnf$1", "symbols": [(myLexer.has("WS") ? {type: "WS"} : WS)]},
     {"name": "__$ebnf$1", "symbols": ["__$ebnf$1", (myLexer.has("WS") ? {type: "WS"} : WS)], "postprocess": function arrpush(d) {return d[0].concat([d[1]]);}},
-    {"name": "__", "symbols": ["__$ebnf$1"]}
+    {"name": "__", "symbols": ["__$ebnf$1"]},
+    {"name": "array", "symbols": [{"literal":"["}, "array_list", {"literal":"]"}]},
+    {"name": "array", "symbols": [{"literal":"["}, "_", {"literal":"]"}]},
+    {"name": "array_items", "symbols": ["expr"], "postprocess":  
+        (data)=>[data[0]]
+        },
+    {"name": "array_items", "symbols": ["expr", {"literal":","}, "array_items"], "postprocess": 
+        (data)=>{
+            return [data[0],...data[2]]
+        }
+            }
 ]
   , ParserStart: "program"
 }

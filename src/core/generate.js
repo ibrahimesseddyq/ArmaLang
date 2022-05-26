@@ -34,7 +34,6 @@ function generateJsForStatements(statements) {
 function generateJsForStatementOrExpr(node) {
     let paramList;
     let jsBody;
-    console.log(node)
     switch (node.type) {
         case "var_assign":
             const varName = node.var_name.value;
@@ -87,7 +86,13 @@ function generateJsForStatementOrExpr(node) {
             }).join(";\n")
             return `if(${expression}){${jsBody}}`;
         case "operation":
-            return node.value;
+            if (typeof node.value == "object")
+                return generateJsForStatementOrExpr(node.value);
+            else
+                return node.value
+        case "return":
+            console.log(node);
+            return node.value ? `return ${node.value}` : "return;"
     }
 }
 
