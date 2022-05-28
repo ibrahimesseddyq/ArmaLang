@@ -78,7 +78,7 @@ function generateJsForStatementOrExpr(node) {
         case "comment":
             return "";
         case "if":
-            let expression = node.condition;
+            let expression = generateJsForStatementOrExpr(node.condition);
             // expression = expression == "wah" ? "true" : "false";
             jsBody = node.body.map((arg, i) => {
                 const jsCode = generateJsForStatementOrExpr(arg);
@@ -93,6 +93,18 @@ function generateJsForStatementOrExpr(node) {
         case "return":
             console.log(node);
             return node.value ? `return ${node.value}` : "return;"
+        case "comparison":
+            return node.value;
+        case "notexpr":
+            return `!${generateJsForStatementOrExpr(node.value)}`;
+        case "echo":
+            return `console.log(${generateJsForStatementOrExpr(node.value)})`;
+        case "array":
+            arrList = node.value
+                .map(param => param.value)
+                .join(", ");
+            return `[${arrList}]`;
+
     }
 }
 

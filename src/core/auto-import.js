@@ -29,7 +29,10 @@ function autoImport(functionss) {
     functions.forEach(element => {
         if (map.hasOwnProperty(element)) {
             if (moduleToFunc[map[element]] == undefined) moduleToFunc[map[element]] = "";
+            // if (moduleToFunc[map[element]] == undefined) throw new Error("had lfonction mm3rofash")
             moduleToFunc[map[element]] += element + ",";
+        } else {
+            throw new Error("had lfonction mm3rofash")
         }
     });
     Object.keys(moduleToFunc).forEach((value) => {

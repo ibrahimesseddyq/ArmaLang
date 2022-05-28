@@ -28,6 +28,17 @@ boolean
             return data == "wah" ? "true":"false";
         }
     %}
+################################## Echo ##################################
+echo
+    ->%ecSign _ echoExpr _ %ecSign
+    {%
+    (data)=>{
+        return{
+            type:"echo",
+            value:data[2]
+        }
+    }
+    %}
 ################################## Statement & Expressions ##################################
 statements
     ->  statement (__lb_ statement):*
@@ -45,6 +56,10 @@ statement
     | ifstatement {% id %}
     | func_definition {% id %}
     | returnStatement {% id %}
+    | echo {% id %}
+echoExpr
+    ->%string     {% id %}
+    |  %number     {% id %}
 expr
     -> %string     {% id %}
     |  %number     {% id %}
@@ -53,10 +68,26 @@ expr
     |  lambda      {% id %}
     | boolean {% id %}
     | operation {% id%}
+    | comparison{% id%}
+    | notExpr{% id%}
+    | array {% id %}
+op_expr
+    -> %number 
+    | %identifier
 ################################## Variable Assignement ##################################
 var_assign
     -> %vardec _ %identifier _ "=" _ expr
         {%
+            (data) => {
+                return {
+                    type: "var_assign",
+                    var_name: data[2],
+                    value: data[6]
+                }
+            }
+        %}
+        | %vardec _ %identifier _ "=" _ operation
+                {%
             (data) => {
                 return {
                     type: "var_assign",
@@ -162,9 +193,19 @@ ifstatement
             
         }
     %}
-
+notExpr
+    ->%not _ expr 
+    {%
+    (data)=>{
+        return{
+            type:"notexpr",
+            value:data[2]
+        }
+        
+    }
+    %}
 operation
-    -> %number _ %operator _ operation
+    -> %op_expr _ %operator _ operation
     {% 
         (data)=> {
             return {
@@ -172,7 +213,7 @@ operation
                 type:"operation"}
         }
     %}
-    | %number
+    | %op_expr
 # operations
 #     -> operation _ %operator _ operations {%
 #             (data)=>{
@@ -224,16 +265,70 @@ __ -> %WS:+
 
 ######################### ARRAYS #########################################
 array 
-    ->"[" array_list "]"
-    | "[" _ "]"
+    ->%lbrack _ array_items _ %rbrack
+    {%
+        (data)=>{
+            return {
+       type:"array",
+        value:data[2]
+            }
+        }
+    %}
+    | %lbrack _ %rbrack
 array_items
     ->expr 
     {% 
     (data)=>[data[0]]
     %}
-    |expr "," array_items 
+    |expr %virgule array_items 
     {%
         (data)=>{
             return [data[0],...data[2]]
+        }
+    %}
+######################### Comparison #########################
+comparison
+    -> expr _ %comparison _ expr 
+    {%
+        (data)=>{
+            if(data[2]=="kyssawi"){
+                data[2]= "==";
+            
+            }
+            else if(data[2]=="kykhalef"){
+                data[2]="!=";
+            }else if(data[2]=="kber men"){
+                data[2]=">";
+            }else if(data[2]=="sgher men"){
+                data[2]="<";
+            }
+
+            return{
+                type:"comparison",
+                value: `${data[0]} ${data[2]} ${data[4]}`
+            }
+        }
+    %}
+ ######################### While #########################
+ whileStatement
+    -> %whileexp _ expr _ %do _ lambda_body
+    {%
+        (data)=>{
+            return {
+                type:"while",
+                condition:data[2],
+                body:data[6]
+            }
+        }
+    %}
+doWhileStatement
+    ->%do _ lambda_body _ %whileexp _ expr
+        {%
+        (data)=>{
+            return {
+                type:"dowhile",
+                condition:data[6],
+                body:data[2]
+            }
         }
     %}

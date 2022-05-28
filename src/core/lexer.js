@@ -3,15 +3,22 @@ const fs = require("mz/fs");
 
 let lexer = moo.compile({
     WS: /[ \t]+/,
+    virgule: ",",
+
     boolean: /wah|la/,
     ecSign: "--",
     lparen: '(',
     rparen: ')',
+    lbrack: "[",
+    rbrack: "]",
+    not: /machi|!/,
+    comparison: /<|>|>=|<=|==|===|!=|kyssawi|kykhalef|kber men|sgher men/,
     vardec: "dir",
     funcdec: "dala",
     importjsdec: "jib-js",
     returnkey: "reje3",
     ifexp: 'ilakan',
+    do: "3mel",
     whileexp: "mahed",
     comment: /\/\/.*?$/,
     number: /0|[1-9][0-9]*/,
