@@ -1,28 +1,7 @@
 const { armaConfig } = require("./../../arma.config")
 
 function autoImport(functionss) {
-    const map = {
-        t2kedMnType: "types",
-        rahObject: "types",
-        ChmnType: "types",
-        mytbdlch: "types",
-        kteb: "standard",
-        zid: "standard",
-        lsse9: "standard",
-        dreb: "standard",
-        n9ess: "standard",
-        _9ssem: "standard",
-        modulo: "standard",
-        jider: "standard",
-        _9owa: "standard",
-        _9reb: "standard",
-        ilakan: "standard",
-        ola: "standard",
-        f: "standard",
-        mahed: "standard",
-        mnTal: "standard",
-        lkolWahd: "standard"
-    }
+    const {map} = require("./modules") 
     let functions = functionss.filter(onlyUnique)
     let importStatements = "";
     moduleToFunc = {}
@@ -31,8 +10,6 @@ function autoImport(functionss) {
             if (moduleToFunc[map[element]] == undefined) moduleToFunc[map[element]] = "";
             // if (moduleToFunc[map[element]] == undefined) throw new Error("had lfonction mm3rofash")
             moduleToFunc[map[element]] += element + ",";
-        } else {
-            throw new Error("had lfonction mm3rofash")
         }
     });
     Object.keys(moduleToFunc).forEach((value) => {

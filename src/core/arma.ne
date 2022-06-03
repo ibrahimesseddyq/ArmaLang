@@ -3,8 +3,7 @@ const myLexer = require("./lexer");
 %}
 
 @lexer myLexer
-# import_js
-#     -> "<" %importjsdec ">" _ js _ "</" %importjsdec ">"
+
 # Defining the program structure
 ################################## Program ##################################
 program
@@ -19,13 +18,17 @@ program
 boolean
     ->  %boolean  {%
         (data)=>{
-            console.log(data)
-            if(data == "wah"){
-                return "true";
+            console.log(data[0].value)
+            if(data[0].value == "wah"){
+                return {
+                    type:"boolean",
+                    value:"true"}
+                    ;
             }
             else
-                return "false"
-            return data == "wah" ? "true":"false";
+                return {
+                    type:"boolean",
+                    value:"false"}
         }
     %}
 ################################## Echo ##################################
@@ -57,6 +60,10 @@ statement
     | func_definition {% id %}
     | returnStatement {% id %}
     | echo {% id %}
+    | whileStatement {% id %}
+    | doWhileStatement {% id %}
+    |incdec{% id %}
+    |importjs {% id %}
 echoExpr
     ->%string     {% id %}
     |  %number     {% id %}
@@ -69,7 +76,9 @@ expr
     | boolean {% id %}
     | operation {% id%}
     | comparison{% id%}
-    | notExpr{% id%}
+    | notExpr1{% id%}
+    | notExpr2{% id%}
+
     | array {% id %}
 op_expr
     -> %number 
@@ -96,6 +105,28 @@ var_assign
                 }
             }
         %}
+value_assign
+    ->%identifier _ "=" _ expr
+    {%
+        (data)=>{
+            return{
+                type:"valassign",
+                identifier:data[0],
+                value:data[4]
+            }
+        }
+    %}
+    incdec
+        -> %identifier %incdec {%
+            (data)=>{
+                console.log(data)
+            return{
+                type:"incdec",
+                identifier:data[0],
+                value:`${data[0]}${data[1]}`
+            }
+        }
+        %}
 ################################## Functions ##################################
 func_definition
     -> %funcdec _ %identifier %lparen _ (param_list _):? %rparen  _ml lambda_body
@@ -109,6 +140,8 @@ func_definition
             }
         }
     %}
+breakstatement
+    ->%breakstatement {% (data)=>{return{type:"break",value:"break"}}%}
     #Defining a lambda function 
 lambda -> "(" _ (param_list _):? ")" _ "->" _ml lambda_body
     {%
@@ -226,7 +259,7 @@ elseif
             }
         }
     %}
-notExpr
+notExpr1
     ->%not _ expr 
     {%
     (data)=>{
@@ -235,6 +268,17 @@ notExpr
             value:data[2]
         }
         
+    }
+    %}
+notExpr2
+    -> expr _ %not _ expr
+    {%
+        (data)=>{
+        return{
+            type:"notexpr2",
+            value1:data[0],
+            value2:data[4]
+        }
     }
     %}
 operation
@@ -307,7 +351,15 @@ array
             }
         }
     %}
-    | %lbrack _ %rbrack
+    | %lbrack _ %rbrack 
+    {%
+        (data)=>{
+            return {
+                type:"array",
+                value:null
+            }
+        }
+    %}
 array_items
     ->expr 
     {% 
@@ -343,25 +395,40 @@ comparison
         }
     %}
  ######################### While #########################
-#  whileStatement
-#     -> %whileexp _ expr _ %do _ lambda_body
-#     {%
-#         (data)=>{
-#             return {
-#                 type:"while",
-#                 condition:data[2],
-#                 body:data[6]
-#             }
-#         }
-#     %}
-# doWhileStatement
-#     ->%do _ lambda_body _ %whileexp _ expr
-#         {%
-#         (data)=>{
-#             return {
-#                 type:"dowhile",
-#                 condition:data[6],
-#                 body:data[2]
-#             }
-#         }
-#     %}
+ whileStatement
+    -> %whileexp _ expr _ %_do _ lambda_body
+    {%
+        (data)=>{
+            return {
+                type:"while",
+                dowhile:false,
+                condition:data[2],
+                body:data[6]
+            }
+        }
+    %}
+doWhileStatement
+    ->%_do _ lambda_body _ %whileexp _ expr
+        {%
+        (data)=>{
+            return {
+                type:"while",
+                dowhile:true,
+                condition:data[6],
+                body:data[2]
+            }
+        }
+    %}
+################################# Jib JS #############################################
+importjs
+    ->%importjsdec _ml %content _ml %importjsdec
+    {%
+        (data)=>{
+                console.log(data)
+
+            return {
+                type:"jibjs",
+                value:data[2]
+            }
+        }
+    %}

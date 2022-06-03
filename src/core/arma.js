@@ -14,13 +14,17 @@ var grammar = {
                 },
     {"name": "boolean", "symbols": [(myLexer.has("boolean") ? {type: "boolean"} : boolean)], "postprocess": 
         (data)=>{
-            console.log(data)
-            if(data == "wah"){
-                return "true";
+            console.log(data[0].value)
+            if(data[0].value == "wah"){
+                return {
+                    type:"boolean",
+                    value:"true"}
+                    ;
             }
             else
-                return "false"
-            return data == "wah" ? "true":"false";
+                return {
+                    type:"boolean",
+                    value:"false"}
         }
             },
     {"name": "echo", "symbols": [(myLexer.has("ecSign") ? {type: "ecSign"} : ecSign), "_", "echoExpr", "_", (myLexer.has("ecSign") ? {type: "ecSign"} : ecSign)], "postprocess": 
@@ -48,6 +52,10 @@ var grammar = {
     {"name": "statement", "symbols": ["func_definition"], "postprocess": id},
     {"name": "statement", "symbols": ["returnStatement"], "postprocess": id},
     {"name": "statement", "symbols": ["echo"], "postprocess": id},
+    {"name": "statement", "symbols": ["whileStatement"], "postprocess": id},
+    {"name": "statement", "symbols": ["doWhileStatement"], "postprocess": id},
+    {"name": "statement", "symbols": ["incdec"], "postprocess": id},
+    {"name": "statement", "symbols": ["importjs"], "postprocess": id},
     {"name": "echoExpr", "symbols": [(myLexer.has("string") ? {type: "string"} : string)], "postprocess": id},
     {"name": "echoExpr", "symbols": [(myLexer.has("number") ? {type: "number"} : number)], "postprocess": id},
     {"name": "expr", "symbols": [(myLexer.has("string") ? {type: "string"} : string)], "postprocess": id},
@@ -58,7 +66,8 @@ var grammar = {
     {"name": "expr", "symbols": ["boolean"], "postprocess": id},
     {"name": "expr", "symbols": ["operation"], "postprocess": id},
     {"name": "expr", "symbols": ["comparison"], "postprocess": id},
-    {"name": "expr", "symbols": ["notExpr"], "postprocess": id},
+    {"name": "expr", "symbols": ["notExpr1"], "postprocess": id},
+    {"name": "expr", "symbols": ["notExpr2"], "postprocess": id},
     {"name": "expr", "symbols": ["array"], "postprocess": id},
     {"name": "op_expr", "symbols": [(myLexer.has("number") ? {type: "number"} : number)]},
     {"name": "op_expr", "symbols": [(myLexer.has("identifier") ? {type: "identifier"} : identifier)]},
@@ -80,6 +89,25 @@ var grammar = {
             }
         }
                 },
+    {"name": "value_assign", "symbols": [(myLexer.has("identifier") ? {type: "identifier"} : identifier), "_", {"literal":"="}, "_", "expr"], "postprocess": 
+        (data)=>{
+            return{
+                type:"valassign",
+                identifier:data[0],
+                value:data[4]
+            }
+        }
+            },
+    {"name": "incdec", "symbols": [(myLexer.has("identifier") ? {type: "identifier"} : identifier), (myLexer.has("incdec") ? {type: "incdec"} : incdec)], "postprocess": 
+            (data)=>{
+                console.log(data)
+            return{
+                type:"incdec",
+                identifier:data[0],
+                value:`${data[0]}${data[1]}`
+            }
+        }
+        },
     {"name": "func_definition$ebnf$1$subexpression$1", "symbols": ["param_list", "_"]},
     {"name": "func_definition$ebnf$1", "symbols": ["func_definition$ebnf$1$subexpression$1"], "postprocess": id},
     {"name": "func_definition$ebnf$1", "symbols": [], "postprocess": function(d) {return null;}},
@@ -93,6 +121,7 @@ var grammar = {
             }
         }
             },
+    {"name": "breakstatement", "symbols": [(myLexer.has("breakstatement") ? {type: "breakstatement"} : breakstatement)], "postprocess": (data)=>{return{type:"break",value:"break"}}},
     {"name": "lambda$ebnf$1$subexpression$1", "symbols": ["param_list", "_"]},
     {"name": "lambda$ebnf$1", "symbols": ["lambda$ebnf$1$subexpression$1"], "postprocess": id},
     {"name": "lambda$ebnf$1", "symbols": [], "postprocess": function(d) {return null;}},
@@ -196,13 +225,22 @@ var grammar = {
             }
         }
             },
-    {"name": "notExpr", "symbols": [(myLexer.has("not") ? {type: "not"} : not), "_", "expr"], "postprocess": 
+    {"name": "notExpr1", "symbols": [(myLexer.has("not") ? {type: "not"} : not), "_", "expr"], "postprocess": 
         (data)=>{
             return{
                 type:"notexpr",
                 value:data[2]
             }
             
+        }
+        },
+    {"name": "notExpr2", "symbols": ["expr", "_", (myLexer.has("not") ? {type: "not"} : not), "_", "expr"], "postprocess": 
+            (data)=>{
+            return{
+                type:"notexpr2",
+                value1:data[0],
+                value2:data[4]
+            }
         }
         },
     {"name": "operation", "symbols": [(myLexer.has("op_expr") ? {type: "op_expr"} : op_expr), "_", (myLexer.has("operator") ? {type: "operator"} : operator), "_", "operation"], "postprocess":  
@@ -244,7 +282,14 @@ var grammar = {
              }
          }
             },
-    {"name": "array", "symbols": [(myLexer.has("lbrack") ? {type: "lbrack"} : lbrack), "_", (myLexer.has("rbrack") ? {type: "rbrack"} : rbrack)]},
+    {"name": "array", "symbols": [(myLexer.has("lbrack") ? {type: "lbrack"} : lbrack), "_", (myLexer.has("rbrack") ? {type: "rbrack"} : rbrack)], "postprocess": 
+        (data)=>{
+            return {
+                type:"array",
+                value:null
+            }
+        }
+            },
     {"name": "array_items", "symbols": ["expr"], "postprocess":  
         (data)=>[data[0]]
         },
@@ -270,6 +315,36 @@ var grammar = {
             return{
                 type:"comparison",
                 value: `${data[0]} ${data[2]} ${data[4]}`
+            }
+        }
+            },
+    {"name": "whileStatement", "symbols": [(myLexer.has("whileexp") ? {type: "whileexp"} : whileexp), "_", "expr", "_", (myLexer.has("_do") ? {type: "_do"} : _do), "_", "lambda_body"], "postprocess": 
+        (data)=>{
+            return {
+                type:"while",
+                dowhile:false,
+                condition:data[2],
+                body:data[6]
+            }
+        }
+            },
+    {"name": "doWhileStatement", "symbols": [(myLexer.has("_do") ? {type: "_do"} : _do), "_", "lambda_body", "_", (myLexer.has("whileexp") ? {type: "whileexp"} : whileexp), "_", "expr"], "postprocess": 
+        (data)=>{
+            return {
+                type:"while",
+                dowhile:true,
+                condition:data[6],
+                body:data[2]
+            }
+        }
+            },
+    {"name": "importjs", "symbols": [(myLexer.has("importjsdec") ? {type: "importjsdec"} : importjsdec), "_ml", (myLexer.has("content") ? {type: "content"} : content), "_ml", (myLexer.has("importjsdec") ? {type: "importjsdec"} : importjsdec)], "postprocess": 
+        (data)=>{
+                console.log(data)
+        
+            return {
+                type:"jibjs",
+                value:data[2]
             }
         }
             }

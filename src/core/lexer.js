@@ -2,23 +2,26 @@ const moo = require('moo');
 const fs = require("mz/fs");
 
 let lexer = moo.compile({
+    importjsdec: "<jib-js>",
+
     WS: /[ \t]+/,
     virgule: ",",
     elseif:"wla lakan",
     boolean: /wah|la/,
-    ecSign: "--",
+    ecSign: "-/-",
+    breakstatement:"hbess",
     lparen: '(',
     rparen: ')',
     lbrack: "[",
     rbrack: "]",
     not: /machi|!/,
+    incdec:/\+\+|--/,
     comparison: /<|>|>=|<=|==|===|!=|kyssawi|kykhalef|kber men|sgher men/,
     vardec: "dir",
     funcdec: "dala",
-    importjsdec: "jib-js",
     returnkey: "reje3",
     ifexp: 'ilakan',
-    do: "3mel",
+    _do: "3mel",
     whileexp: "mahed",
     comment: /\/\/.*?$/,
     number: /0|[1-9][0-9]*/,
@@ -30,7 +33,7 @@ let lexer = moo.compile({
     operator: /[-+/*]{1}/,
 
     assign: '=',
-
+    content:/[a-zA-Z.-_$=><|&]+/,
     NL: { match: /\r?\n/, lineBreaks: true }
 });
 

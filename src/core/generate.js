@@ -111,9 +111,12 @@ function generateJsForStatementOrExpr(node) {
             console.log(node);
             return node.value ? `return ${node.value}` : "return;"
         case "comparison":
+        case "break":
             return node.value;
-        case "notexpr":
+        case "notexpr1":
             return `!${generateJsForStatementOrExpr(node.value)}`;
+        case "notexpr2":
+            return `${generateJsForStatementOrExpr(node.value1)} != ${generateJsForStatementOrExpr(node.value2)}`
         case "echo":
             return `console.log(${generateJsForStatementOrExpr(node.value)})`;
         case "array":
@@ -122,18 +125,9 @@ function generateJsForStatementOrExpr(node) {
                 .map(param => param.value)
                 .join(", ");
             return `[${arrList}]`;
+        
         case "elseif":
-                // elseif= `else if (${node.elseif.condition.value}){${node.elseif.body.map((arg, i) => {
-                //     const jsCode = generateJsForStatementOrExprs(arg);
-                //     return jsCode;
-                // }).join(";\n")}}`;
-                // console.log("elseif :"+elseif)
 
-                // if(node.elseif.hasOwnProperty("repeated")){
-                //     console.log("repeated :"+elseif)
-                //     elseif +=  generateJsForStatementOrExpr(node.elseif);
-                    
-                // }
             let repeated = node.hasOwnProperty("repeated") ? generateJsForStatementOrExpr(node.repeated) : "";
 
             let expression2 = generateJsForStatementOrExpr(node.condition);
@@ -144,7 +138,26 @@ function generateJsForStatementOrExpr(node) {
                 return jsCode;
             }).join(";\n")
             return `else if(${expression2}){${jsBody}}` + repeated;
+            case "while":
+                let whileexpression = generateJsForStatementOrExpr(node.condition);
+                // expression = expression == "wah" ? "true" : "false";
+                jsBody = node.body.map((arg, i) => {
+                    const jsCode = generateJsForStatementOrExpr(arg);
+                    return jsCode;
+                }).join(";\n")
+                if(!node.dowhile)
+                    return `while(${whileexpression}){${jsBody}};`;
+                return `do{${jsBody}}while(${whileexpression});`
+            case "valassign":
+                return `${node.identifier} = ${node.value}`
+            case "incdec":
+                return node.value
+            case "boolean":
+                return node.value
+            case "jibjs":
+                return node.value
     }
+    
 }
 
 function indent(string) {
