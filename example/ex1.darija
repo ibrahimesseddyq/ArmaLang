@@ -1,0 +1,10 @@
+dir a = []
+ilakan 1>2 {
+    kteb("1>2")
+}
+wla lakan 5>3 {
+    kteb("5>3")
+}
+wla lakan 4 < 6 {
+    kteb("4<6") 
+}

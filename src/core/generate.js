@@ -78,13 +78,30 @@ function generateJsForStatementOrExpr(node) {
         case "comment":
             return "";
         case "if":
+            let elseif ="";
+            let repeat = "";
             let expression = generateJsForStatementOrExpr(node.condition);
             // expression = expression == "wah" ? "true" : "false";
             jsBody = node.body.map((arg, i) => {
                 const jsCode = generateJsForStatementOrExpr(arg);
                 return jsCode;
             }).join(";\n")
-            return `if(${expression}){${jsBody}}`;
+
+            if(node.hasOwnProperty("elseif")){
+                elseif= generateJsForStatementOrExpr(node.elseif)
+                // elseif= `else if (${node.elseif.condition.value}){${node.elseif.body.map((arg, i) => {
+                //     const jsCode = generateJsForStatementOrExpr(arg);
+                //     return jsCode;
+                // }).join(";\n")}}`;
+                // console.log("elseif :"+elseif)
+
+                // if(node.elseif.hasOwnProperty("repeated")){
+                //     console.log("repeated :"+elseif)
+                //     elseif +=  generateJsForStatementOrExpr(node.elseif);
+                    
+                // }
+            }
+            return `if(${expression}){${jsBody}} ${elseif}`;
         case "operation":
             if (typeof node.value == "object")
                 return generateJsForStatementOrExpr(node.value);
@@ -100,11 +117,33 @@ function generateJsForStatementOrExpr(node) {
         case "echo":
             return `console.log(${generateJsForStatementOrExpr(node.value)})`;
         case "array":
+            if(!node.value) return "[]";
             arrList = node.value
                 .map(param => param.value)
                 .join(", ");
             return `[${arrList}]`;
+        case "elseif":
+                // elseif= `else if (${node.elseif.condition.value}){${node.elseif.body.map((arg, i) => {
+                //     const jsCode = generateJsForStatementOrExprs(arg);
+                //     return jsCode;
+                // }).join(";\n")}}`;
+                // console.log("elseif :"+elseif)
 
+                // if(node.elseif.hasOwnProperty("repeated")){
+                //     console.log("repeated :"+elseif)
+                //     elseif +=  generateJsForStatementOrExpr(node.elseif);
+                    
+                // }
+            let repeated = node.hasOwnProperty("repeated") ? generateJsForStatementOrExpr(node.repeated) : "";
+
+            let expression2 = generateJsForStatementOrExpr(node.condition);
+            // expression = expression == "wah" ? "true" : "false";
+            console.log("wah")
+            jsBody = node.body.map((arg, i) => {
+                const jsCode = generateJsForStatementOrExpr(arg);
+                return jsCode;
+            }).join(";\n")
+            return `else if(${expression2}){${jsBody}}` + repeated;
     }
 }
 

@@ -167,6 +167,35 @@ var grammar = {
             
         }
             },
+    {"name": "ifstatement", "symbols": [(myLexer.has("ifexp") ? {type: "ifexp"} : ifexp), "__", "expr", "_ml", {"literal":"{"}, "__lb_", "statements", "__lb_", {"literal":"}"}, "_ml", "elseif"], "postprocess": 
+        (data)=>{
+            return{
+                type:"if",
+                condition:data[2],
+                body:data[6],
+                elseif:data[10]
+            }
+        }
+            },
+    {"name": "elseif", "symbols": [(myLexer.has("elseif") ? {type: "elseif"} : elseif), "_", "expr", "_ml", {"literal":"{"}, "__lb_", "statements", "__lb_", {"literal":"}"}], "postprocess": 
+        (data)=>{
+            return{
+                type:"elseif",
+                condition:data[2],
+                body:data[6]
+            }
+        }
+            },
+    {"name": "elseif", "symbols": [(myLexer.has("elseif") ? {type: "elseif"} : elseif), "_", "expr", "_ml", {"literal":"{"}, "__lb_", "statements", "__lb_", {"literal":"}"}, "_ml", "elseif"], "postprocess": 
+        (data)=>{
+            return{
+                type:"elseif",
+                condition:data[2],
+                body:data[6],
+                repeated:data[10]
+            }
+        }
+            },
     {"name": "notExpr", "symbols": [(myLexer.has("not") ? {type: "not"} : not), "_", "expr"], "postprocess": 
         (data)=>{
             return{

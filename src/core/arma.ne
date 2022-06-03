@@ -192,6 +192,39 @@ ifstatement
             }
             
         }
+    %} |%ifexp __ expr _ml "{" __lb_ statements __lb_ "}" _ml elseif 
+    {%
+        (data)=>{
+            return{
+                type:"if",
+                condition:data[2],
+                body:data[6],
+                elseif:data[10]
+            }
+        }
+    %}
+
+elseif
+    ->%elseif _ expr _ml "{" __lb_ statements __lb_ "}"
+    {%
+        (data)=>{
+            return{
+                type:"elseif",
+                condition:data[2],
+                body:data[6]
+            }
+        }
+    %}
+    | %elseif _ expr _ml "{" __lb_ statements __lb_ "}" _ml elseif
+        {%
+        (data)=>{
+            return{
+                type:"elseif",
+                condition:data[2],
+                body:data[6],
+                repeated:data[10]
+            }
+        }
     %}
 notExpr
     ->%not _ expr 
@@ -310,25 +343,25 @@ comparison
         }
     %}
  ######################### While #########################
- whileStatement
-    -> %whileexp _ expr _ %do _ lambda_body
-    {%
-        (data)=>{
-            return {
-                type:"while",
-                condition:data[2],
-                body:data[6]
-            }
-        }
-    %}
-doWhileStatement
-    ->%do _ lambda_body _ %whileexp _ expr
-        {%
-        (data)=>{
-            return {
-                type:"dowhile",
-                condition:data[6],
-                body:data[2]
-            }
-        }
-    %}
+#  whileStatement
+#     -> %whileexp _ expr _ %do _ lambda_body
+#     {%
+#         (data)=>{
+#             return {
+#                 type:"while",
+#                 condition:data[2],
+#                 body:data[6]
+#             }
+#         }
+#     %}
+# doWhileStatement
+#     ->%do _ lambda_body _ %whileexp _ expr
+#         {%
+#         (data)=>{
+#             return {
+#                 type:"dowhile",
+#                 condition:data[6],
+#                 body:data[2]
+#             }
+#         }
+#     %}
