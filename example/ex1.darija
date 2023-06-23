@@ -1,0 +1,13 @@
+kteb("salam")
+dir a = 5
+
+mahed a < 10 3mel {
+    a = a +2
+    ilakan a machi 7 {
+        kteb(a)
+    }
+    ilakan a == 8 {
+        kteb("8 8")
+    }
+    
+}

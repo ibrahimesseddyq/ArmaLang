@@ -148,7 +148,7 @@ function generateJsForStatementOrExpr(node) {
                 if(!node.dowhile)
                     return `while(${whileexpression}){${jsBody}};`;
                 return `do{${jsBody}}while(${whileexpression});`
-            case "valassign":
+            case "value_assign":
                 return `${node.identifier} = ${node.value}`
             case "incdec":
                 return node.value

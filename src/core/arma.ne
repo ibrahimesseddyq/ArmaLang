@@ -54,6 +54,7 @@ statements
         %}
 statement
     -> var_assign  {% id %}
+    | value_assign {% id %}
     |  fun_call    {% id %}
     |  %comment    {% id %}
     | ifstatement {% id %}
@@ -71,10 +72,10 @@ expr
     -> %string     {% id %}
     |  %number     {% id %}
     |  %identifier {% id %}
+    | operation {% id%}
     |  fun_call    {% id %}
     |  lambda      {% id %}
     | boolean {% id %}
-    | operation {% id%}
     | comparison{% id%}
     | notExpr1{% id%}
     | notExpr2{% id%}

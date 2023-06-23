@@ -1,54 +1,91 @@
 [
   {
-    "type": "var_assign",
-    "var_name": {
+    "type": "fun_call",
+    "fun_name": {
       "type": "identifier",
-      "value": "hbil",
-      "text": "hbil",
-      "offset": 4,
+      "value": "kteb",
+      "text": "kteb",
+      "offset": 0,
       "lineBreaks": 0,
       "line": 1,
-      "col": 5
+      "col": 1
     },
-    "value": {
-      "type": "boolean",
-      "value": "true"
-    }
+    "arguments": [
+      {
+        "type": "string",
+        "value": "\"salam\"",
+        "text": "\"salam\"",
+        "offset": 5,
+        "lineBreaks": 0,
+        "line": 1,
+        "col": 6
+      }
+    ]
   },
   {
     "type": "var_assign",
     "var_name": {
       "type": "identifier",
-      "value": "mehdi",
-      "text": "mehdi",
-      "offset": 20,
+      "value": "a",
+      "text": "a",
+      "offset": 19,
       "lineBreaks": 0,
       "line": 2,
       "col": 5
     },
     "value": {
-      "type": "boolean",
-      "value": "true"
+      "type": "number",
+      "value": "5",
+      "text": "5",
+      "offset": 23,
+      "lineBreaks": 0,
+      "line": 2,
+      "col": 9
     }
   },
   {
-    "type": "funcdef",
-    "identifier": {
-      "type": "identifier",
-      "value": "n3ini3ahbil",
-      "text": "n3ini3ahbil",
-      "offset": 38,
-      "lineBreaks": 0,
-      "line": 3,
-      "col": 6
+    "type": "while",
+    "dowhile": false,
+    "condition": {
+      "type": "comparison",
+      "value": "a < 10"
     },
-    "parameters": [],
     "body": [
+      {
+        "type": "incdec",
+        "identifier": {
+          "type": "identifier",
+          "value": "a",
+          "text": "a",
+          "offset": 53,
+          "lineBreaks": 0,
+          "line": 5,
+          "col": 5
+        },
+        "value": "a++"
+      },
       {
         "type": "if",
         "condition": {
-          "type": "comparison",
-          "value": "mehdi == hbil"
+          "type": "notexpr2",
+          "value1": {
+            "type": "identifier",
+            "value": "a",
+            "text": "a",
+            "offset": 69,
+            "lineBreaks": 0,
+            "line": 6,
+            "col": 12
+          },
+          "value2": {
+            "type": "number",
+            "value": "7",
+            "text": "7",
+            "offset": 77,
+            "lineBreaks": 0,
+            "line": 6,
+            "col": 20
+          }
         },
         "body": [
           {
@@ -57,87 +94,57 @@
               "type": "identifier",
               "value": "kteb",
               "text": "kteb",
-              "offset": 91,
+              "offset": 90,
               "lineBreaks": 0,
-              "line": 5,
+              "line": 7,
+              "col": 9
+            },
+            "arguments": [
+              {
+                "type": "identifier",
+                "value": "a",
+                "text": "a",
+                "offset": 95,
+                "lineBreaks": 0,
+                "line": 7,
+                "col": 14
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "if",
+        "condition": {
+          "type": "comparison",
+          "value": "a == 8"
+        },
+        "body": [
+          {
+            "type": "fun_call",
+            "fun_name": {
+              "type": "identifier",
+              "value": "kteb",
+              "text": "kteb",
+              "offset": 135,
+              "lineBreaks": 0,
+              "line": 10,
               "col": 9
             },
             "arguments": [
               {
                 "type": "string",
-                "value": "\"n3ini3a hbil\"",
-                "text": "\"n3ini3a hbil\"",
-                "offset": 96,
+                "value": "\"8 8\"",
+                "text": "\"8 8\"",
+                "offset": 140,
                 "lineBreaks": 0,
-                "line": 5,
+                "line": 10,
                 "col": 14
               }
             ]
           }
-        ],
-        "elseif": {
-          "type": "elseif",
-          "condition": {
-            "type": "notexpr2",
-            "value1": {
-              "type": "identifier",
-              "value": "mehdi",
-              "text": "mehdi",
-              "offset": 128,
-              "lineBreaks": 0,
-              "line": 6,
-              "col": 16
-            },
-            "value2": {
-              "type": "identifier",
-              "value": "hbil",
-              "text": "hbil",
-              "offset": 140,
-              "lineBreaks": 0,
-              "line": 6,
-              "col": 28
-            }
-          },
-          "body": [
-            {
-              "type": "fun_call",
-              "fun_name": {
-                "type": "identifier",
-                "value": "kteb",
-                "text": "kteb",
-                "offset": 156,
-                "lineBreaks": 0,
-                "line": 7,
-                "col": 9
-              },
-              "arguments": [
-                {
-                  "type": "string",
-                  "value": "\"n3ini3a machi hbil\"",
-                  "text": "\"n3ini3a machi hbil\"",
-                  "offset": 161,
-                  "lineBreaks": 0,
-                  "line": 7,
-                  "col": 14
-                }
-              ]
-            }
-          ]
-        }
+        ]
       }
     ]
-  },
-  {
-    "type": "fun_call",
-    "fun_name": {
-      "type": "identifier",
-      "value": "n3ini3ahbil",
-      "text": "n3ini3ahbil",
-      "offset": 194,
-      "lineBreaks": 0,
-      "line": 10,
-      "col": 1
-    },
-    "arguments": []
   }
 ]
