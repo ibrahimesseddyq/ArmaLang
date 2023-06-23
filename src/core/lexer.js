@@ -33,7 +33,7 @@ let lexer = moo.compile({
     operator: /[-+/*]{1}/,
 
     assign: '=',
-    content:/[a-zA-Z.-_$=><|&]+/,
+    content:/[a-zA-Z.-_$=><?|&]+/,
     NL: { match: /\r?\n/, lineBreaks: true }
 });
 

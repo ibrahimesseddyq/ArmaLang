@@ -1,0 +1,30 @@
+// Basic variable assignment
+dir a = 10
+dir b = 20 
+dir c=30
+
+// Assigning string
+dir jomla = "ahlan ya 3alam!!"
+
+// Assigning boolean
+dir isTrue = wah
+dir isFalse = la
+dir isTrue = s7i7
+dir isFalse = ghalat
+
+// Assigning array 
+dir arr = [1, 2, 3, 4, 5]
+// Assigning the return value of a function
+dala double(n) {
+    rje3 n * 2
+}
+dir d = double(5)
+// Assigning the result of an operation
+dir sum = a + b
+dir diff = a - b
+dir product = a * b
+dir quotient = a / b
+// Reassigning variable values
+a = 15
+b = b + 5
+str = str + "How are you"

@@ -19,13 +19,13 @@ boolean
     ->  %boolean  {%
         (data)=>{
             console.log(data[0].value)
-            if(data[0].value == "wah"){
+            if(data[0].value == "wah"|| data[0].value == "s7i7"){
                 return {
                     type:"boolean",
                     value:"true"}
                     ;
             }
-            else
+            else if(data[0].value == "la" || data[0].value == "ghalat")
                 return {
                     type:"boolean",
                     value:"false"}
@@ -284,14 +284,26 @@ notExpr2
     %}
 operation
     -> %op_expr _ %operator _ operation
-    {% 
-        (data)=> {
-            return {
-                value:`${data[0]} ${data[2]} ${data[4].value ? data[4].value:data[4]}`,
-                type:"operation"}
-        }
-    %}
+        {%
+            (data) => {
+                return {
+                    type: "operation",
+                    left: data[0],
+                    operator: data[2],
+                    right: data[4]
+                }
+            }
+        %}
     | %op_expr
+        {%
+            (data) => {
+                return {
+                    type: "operand",
+                    value: data[0]
+                }
+            }
+        %}
+
 # operations
 #     -> operation _ %operator _ operations {%
 #             (data)=>{
