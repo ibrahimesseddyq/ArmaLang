@@ -7,7 +7,7 @@ let lexer = moo.compile({
     WS: /[ \t]+/,
     virgule: ",",
     elseif:"wla lakan",
-    boolean: /wah|la/,
+    boolean: /wah|s7i7|ghalat|la/,
     ecSign: "-/-",
     breakstatement:"hbess",
     lparen: '(',

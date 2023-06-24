@@ -3,7 +3,7 @@ const map = {
     rahObject: "types",
     ChmnType: "types",
     mytbdlch: "types",
-    kteb: "standard",
+    kteb: "io",
     zid: "standard",
     lsse9: "standard",
     dreb: "standard",
@@ -18,7 +18,11 @@ const map = {
     f: "standard",
     mahed: "standard",
     mnTal: "standard",
-    lkolWahd: "standard"
+    lkolWahd: "standard",
+    jib:"io",
+    jibBlaEspace:"io",
+    jibAdad:"io",
+    jibRa9mfassila:"io"
 }
 module.exports={
     map

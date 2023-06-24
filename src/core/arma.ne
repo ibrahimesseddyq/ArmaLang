@@ -65,6 +65,7 @@ statement
     | doWhileStatement {% id %}
     |incdec{% id %}
     |importjs {% id %}
+
 echoExpr
     ->%string     {% id %}
     |  %number     {% id %}
@@ -84,6 +85,7 @@ expr
 op_expr
     -> %number 
     | %identifier
+    | %string
 ################################## Variable Assignement ##################################
 var_assign
     -> %vardec _ %identifier _ "=" _ expr
@@ -283,7 +285,7 @@ notExpr2
     }
     %}
 operation
-    -> %op_expr _ %operator _ operation
+    -> expr _ %operator _ operation
         {%
             (data) => {
                 return {
@@ -294,7 +296,7 @@ operation
                 }
             }
         %}
-    | %op_expr
+    | expr
         {%
             (data) => {
                 return {
@@ -303,7 +305,6 @@ operation
                 }
             }
         %}
-
 # operations
 #     -> operation _ %operator _ operations {%
 #             (data)=>{
@@ -354,36 +355,40 @@ __ -> %WS:+
 
 
 ######################### ARRAYS #########################################
-array 
-    ->%lbrack _ array_items _ %rbrack
-    {%
-        (data)=>{
-            return {
-       type:"array",
-        value:data[2]
+
+array
+    -> %lbrack _ array_items _ %rbrack
+        {%
+            (data) => {
+                return {
+                    type: "array",
+                    value: data[2]
+                }
             }
-        }
-    %}
-    | %lbrack _ %rbrack 
-    {%
-        (data)=>{
-            return {
-                type:"array",
-                value:null
+        %}
+    | %lbrack _ %rbrack
+        {%
+            () => {
+                return {
+                    type: "array",
+                    value: []
+                }
             }
-        }
-    %}
+        %}
+
 array_items
-    ->expr 
-    {% 
-    (data)=>[data[0]]
-    %}
-    |expr %virgule array_items 
-    {%
-        (data)=>{
-            return [data[0],...data[2]]
-        }
-    %}
+    -> expr
+        {%
+            (data) => {
+                return [data[0]]
+            }
+        %}
+    |  expr _ %virgule _ array_items
+        {%
+            (data) => {
+                return [data[0], ...data[4]]
+            }
+        %}
 ######################### Comparison #########################
 comparison
     -> expr _ %comparison _ expr 

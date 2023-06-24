@@ -103,10 +103,12 @@ function generateJsForStatementOrExpr(node) {
             }
             return `if(${expression}){${jsBody}} ${elseif}`;
         case "operation":
-            if (typeof node.value == "object")
-                return generateJsForStatementOrExpr(node.value);
-            else
-                return node.value
+                const leftJs = generateJsForStatementOrExpr(node.left);
+                const operator = node.operator;
+                const rightJs = generateJsForStatementOrExpr(node.right);
+                return `(${leftJs} ${operator} ${rightJs})`;
+        case "operand":
+                    return generateJsForStatementOrExpr(node.value);            
         case "return":
             console.log(node);
             return node.value ? `return ${node.value}` : "return;"
@@ -120,12 +122,9 @@ function generateJsForStatementOrExpr(node) {
         case "echo":
             return `console.log(${generateJsForStatementOrExpr(node.value)})`;
         case "array":
-            if(!node.value) return "[]";
-            arrList = node.value
-                .map(param => param.value)
-                .join(", ");
-            return `[${arrList}]`;
-        
+                if (!node.value) return "[]";
+                const arrList = node.value.map(param => generateJsForStatementOrExpr(param)).join(", ");
+                return `[${arrList}]`;
         case "elseif":
 
             let repeated = node.hasOwnProperty("repeated") ? generateJsForStatementOrExpr(node.repeated) : "";

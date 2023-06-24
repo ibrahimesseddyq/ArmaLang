@@ -1,0 +1,248 @@
+[
+  {
+    "type": "comment",
+    "value": "// Basic variable assignment",
+    "text": "// Basic variable assignment",
+    "offset": 0,
+    "lineBreaks": 0,
+    "line": 1,
+    "col": 1
+  },
+  {
+    "type": "var_assign",
+    "var_name": {
+      "type": "identifier",
+      "value": "a",
+      "text": "a",
+      "offset": 34,
+      "lineBreaks": 0,
+      "line": 2,
+      "col": 5
+    },
+    "value": {
+      "type": "number",
+      "value": "10",
+      "text": "10",
+      "offset": 38,
+      "lineBreaks": 0,
+      "line": 2,
+      "col": 9
+    }
+  },
+  {
+    "type": "var_assign",
+    "var_name": {
+      "type": "identifier",
+      "value": "b",
+      "text": "b",
+      "offset": 46,
+      "lineBreaks": 0,
+      "line": 3,
+      "col": 5
+    },
+    "value": {
+      "type": "number",
+      "value": "20",
+      "text": "20",
+      "offset": 50,
+      "lineBreaks": 0,
+      "line": 3,
+      "col": 9
+    }
+  },
+  {
+    "type": "var_assign",
+    "var_name": {
+      "type": "identifier",
+      "value": "c",
+      "text": "c",
+      "offset": 59,
+      "lineBreaks": 0,
+      "line": 4,
+      "col": 5
+    },
+    "value": {
+      "type": "number",
+      "value": "30",
+      "text": "30",
+      "offset": 61,
+      "lineBreaks": 0,
+      "line": 4,
+      "col": 7
+    }
+  },
+  {
+    "type": "comment",
+    "value": "// Assigning string",
+    "text": "// Assigning string",
+    "offset": 67,
+    "lineBreaks": 0,
+    "line": 6,
+    "col": 1
+  },
+  {
+    "type": "var_assign",
+    "var_name": {
+      "type": "identifier",
+      "value": "jomla",
+      "text": "jomla",
+      "offset": 92,
+      "lineBreaks": 0,
+      "line": 7,
+      "col": 5
+    },
+    "value": {
+      "type": "string",
+      "value": "\"ahlan ya 3alam!!\"",
+      "text": "\"ahlan ya 3alam!!\"",
+      "offset": 100,
+      "lineBreaks": 0,
+      "line": 7,
+      "col": 13
+    }
+  },
+  {
+    "type": "comment",
+    "value": "// Assigning boolean",
+    "text": "// Assigning boolean",
+    "offset": 122,
+    "lineBreaks": 0,
+    "line": 9,
+    "col": 1
+  },
+  {
+    "type": "var_assign",
+    "var_name": {
+      "type": "identifier",
+      "value": "isTrue",
+      "text": "isTrue",
+      "offset": 148,
+      "lineBreaks": 0,
+      "line": 10,
+      "col": 5
+    },
+    "value": {
+      "type": "boolean",
+      "value": "true"
+    }
+  },
+  {
+    "type": "var_assign",
+    "var_name": {
+      "type": "identifier",
+      "value": "isFalse",
+      "text": "isFalse",
+      "offset": 166,
+      "lineBreaks": 0,
+      "line": 11,
+      "col": 5
+    },
+    "value": {
+      "type": "boolean",
+      "value": "false"
+    }
+  },
+  {
+    "type": "var_assign",
+    "var_name": {
+      "type": "identifier",
+      "value": "isTrue",
+      "text": "isTrue",
+      "offset": 184,
+      "lineBreaks": 0,
+      "line": 12,
+      "col": 5
+    },
+    "value": {
+      "type": "boolean",
+      "value": "false"
+    }
+  },
+  {
+    "type": "var_assign",
+    "var_name": {
+      "type": "identifier",
+      "value": "isFalse",
+      "text": "isFalse",
+      "offset": 203,
+      "lineBreaks": 0,
+      "line": 13,
+      "col": 5
+    },
+    "value": {
+      "type": "boolean",
+      "value": "false"
+    }
+  },
+  {
+    "type": "comment",
+    "value": "// Assigning array ",
+    "text": "// Assigning array ",
+    "offset": 223,
+    "lineBreaks": 0,
+    "line": 15,
+    "col": 1
+  },
+  {
+    "type": "var_assign",
+    "var_name": {
+      "type": "identifier",
+      "value": "arr",
+      "text": "arr",
+      "offset": 248,
+      "lineBreaks": 0,
+      "line": 16,
+      "col": 5
+    },
+    "value": {
+      "type": "array",
+      "value": [
+        {
+          "type": "number",
+          "value": "1",
+          "text": "1",
+          "offset": 255,
+          "lineBreaks": 0,
+          "line": 16,
+          "col": 12
+        },
+        {
+          "type": "number",
+          "value": "2",
+          "text": "2",
+          "offset": 257,
+          "lineBreaks": 0,
+          "line": 16,
+          "col": 14
+        },
+        {
+          "type": "number",
+          "value": "3",
+          "text": "3",
+          "offset": 259,
+          "lineBreaks": 0,
+          "line": 16,
+          "col": 16
+        },
+        {
+          "type": "number",
+          "value": "4",
+          "text": "4",
+          "offset": 261,
+          "lineBreaks": 0,
+          "line": 16,
+          "col": 18
+        },
+        {
+          "type": "number",
+          "value": "5",
+          "text": "5",
+          "offset": 263,
+          "lineBreaks": 0,
+          "line": 16,
+          "col": 20
+        }
+      ]
+    }
+  }
+]
